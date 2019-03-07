@@ -12,3 +12,29 @@ I’d also like people to be able to tag films by their genre (action, thriller,
 
 Plus I’d like people to be able to add film news stories, gossip etc.
 
+##  Contribution Guide
+
+### Branches
+
+**master branch** you will never touch it, this is production and should be updated *rarely* when everything is tested and works.
+
+**development branch** this is development branch, you **do not** code here, you send pull requests here to be checked by other members of your team and merged. If you pair a lot and the dev team is ok with it you can skip the checked part and merge the pull request yourself but still, don’t push you code here.
+
+#### Naming branches
+
+Naming branches is an important aspect of coding with other devs and even for your future self, let’s look at how we can approach this.
+
+*myNewBranch* doesn’t explain anything and it doesn’t solve our problems, we need a naming convention(if needed include your name before the type of the branch like so name-type/short-description):
+
+```
+"bug/fixed-all-caps"
+"feature/giant-duck-modal"
+"refactor/add-prop-types"
+"style/everything-is-black"
+```
+
+Type/short-description
+
+#### Types
+
+We’ll define 4 *basic types* of branches: **bug**, **feature**, **refactor** and **style**:respectively for bugfixes, new features, code refactoring and design/css stuff, after the type comes the name, it should specify on top of the branch type.
