@@ -17,11 +17,11 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">@Html.ActionLink("Home", "Index", "Home", new { @class = "nav-link" })</li>
-                <li class="nav-item">@Html.ActionLink("About", "About", "Home", new { @class = "nav-link" })</li>
-                <li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home", new { @class = "nav-link" })</li>
-            </ul>
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">@Html.ActionLink("Home", "Index", "Home","", new { @class = "nav-link" })</li>
+            <li class="nav-item">@Html.ActionLink("Movies", "Index", "Movie", "", new {@class ="nav-link" })</li>
+            <li class="nav-item">@Html.ActionLink("About", "About", "Home","", new { @class = "nav-link" })</li>
+          </ul>
             @Html.Partial("_LoginPartial")
         </div>
     </div>

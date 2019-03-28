@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MovieReviews_MVC.Models;
 
 namespace MovieReviews_MVC.Controllers
 {
@@ -11,7 +12,9 @@ namespace MovieReviews_MVC.Controllers
         // GET: Movie
         public ActionResult Index()
         {
-            return View();
+          var ctx = ApplicationDbContext.Create();
+          var movies = ctx.Movies.ToList();
+            return View(ctx.Movies.ToList());
         }
 
         // GET: Movie/Details/5

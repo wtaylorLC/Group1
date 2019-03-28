@@ -1,0 +1,25 @@
+﻿@model IEnumerable<MovieReviews_MVC.Models.Entities.Movie>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Movies</h2>
+
+
+<div class="row flex-wrap">
+  @foreach (var movie in Model)
+  {
+    <div class="col-4 p-4">
+      <a class="card" href="@Url.Action("Details", "Movie", new {id = movie.Id})">
+        <img class="card-img-top" src="@movie.Image" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title text-capitalize text-center">@movie.Title</h5>
+          
+        </div>
+      </a>
+    </div>
+  }
+
+  </div>
+
