@@ -3,7 +3,7 @@ using System.Linq;
 using MovieReviews_MVC.Models;
 using MovieReviews_MVC.Models.Entities;
 
-namespace MovieReviews_MVC
+namespace MovieReviews_MVC.DbInitializer
 {
   public class MovieReviewsDbInitilizer : DropCreateDatabaseAlways<ApplicationDbContext>
   {
