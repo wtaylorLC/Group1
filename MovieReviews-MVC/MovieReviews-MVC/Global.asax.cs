@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using MovieReviews_MVC.DbInitializer;
 
 namespace MovieReviews_MVC
 {
