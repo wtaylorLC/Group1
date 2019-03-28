@@ -36,7 +36,9 @@ namespace MovieReviews_MVC.Models
       {
         modelBuilder.Configurations.Add(new GenreEntityDbConfiguration());
         modelBuilder.Configurations.Add(new MovieEntityDbConfiguration());
-      }
+
+        base.OnModelCreating(modelBuilder);
+    }
 
       public DbSet<Genre> Genres { get; set; }
       public DbSet<Movie> Movies { get; set; }
