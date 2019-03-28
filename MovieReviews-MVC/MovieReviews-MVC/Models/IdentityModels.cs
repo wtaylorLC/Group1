@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using MovieReviews_MVC.Models.Entities;
 
 namespace MovieReviews_MVC.Models
 {
@@ -29,5 +30,8 @@ namespace MovieReviews_MVC.Models
         {
             return new ApplicationDbContext();
         }
+
+      public DbSet<Genre> Genres { get; set; }
+      public DbSet<Movie> Movies { get; set; }
     }
 }
