@@ -24,7 +24,7 @@ namespace MovieReviews_MVC.DbInitializer
       #region Movies
 
       var movies = new Faker<Movie>()
-        .RuleFor(m => m.Title, f => f.Hacker.Adjective() + f.Hacker.Noun())
+        .RuleFor(m => m.Title, f => f.Hacker.Adjective()+" " + f.Hacker.Noun())
         .RuleFor(m => m.Year, f => f.Random.Int(2000, 2018))
         .RuleFor(m => m.Length, f => f.Random.Int(60, 180))
         .RuleFor(m => m.Rating, f => f.Random.Float(-5, 5))
