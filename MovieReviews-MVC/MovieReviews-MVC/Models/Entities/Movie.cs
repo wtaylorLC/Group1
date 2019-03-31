@@ -11,7 +11,7 @@ namespace MovieReviews_MVC.Models.Entities
     public int Year { get; set; }
     public int Length { get; set; }
     public string Image { get; set; }
-    public float Rating { get; set; }
+    public int Rating { get; set; }
 
 
 
@@ -19,7 +19,7 @@ namespace MovieReviews_MVC.Models.Entities
 
     // FilmCrew
     public virtual ICollection<Genre> Genres { get; set; }
-    // Revies
+    // Reviews
     // Ratings
   }
 }

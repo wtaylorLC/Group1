@@ -1,11 +1,11 @@
-﻿@model IEnumerable<MovieReviews_MVC.Models.Entities.Movie>
+﻿@model List<MovieReviews_MVC.Models.ViewModels.MoviesViewModel>
 
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Movies</h2>
-
+ 
 
 <div class="row flex-wrap">
   @foreach (var movie in Model)
@@ -15,7 +15,7 @@
         <img class="card-img-top" src="@movie.Image" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title text-capitalize text-center">@movie.Title</h5>
-          
+          <p>Rating: @movie.Rating</p>
         </div>
       </a>
     </div>

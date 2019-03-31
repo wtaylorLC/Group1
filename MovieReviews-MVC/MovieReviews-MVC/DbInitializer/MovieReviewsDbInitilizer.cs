@@ -27,7 +27,7 @@ namespace MovieReviews_MVC.DbInitializer
         .RuleFor(m => m.Title, f => f.Hacker.Adjective()+" " + f.Hacker.Noun())
         .RuleFor(m => m.Year, f => f.Random.Int(2000, 2018))
         .RuleFor(m => m.Length, f => f.Random.Int(60, 180))
-        .RuleFor(m => m.Rating, f => f.Random.Float(-5, 5))
+        .RuleFor(m => m.Rating, f => f.Random.Int(0, 10))
         .RuleFor(m => m.Image, f => f.Image.PicsumUrl(320, 320))
         .RuleFor(m => m.Description, f => f.Lorem.Text())
         .Generate(20);

@@ -1,0 +1,26 @@
+﻿@model MovieReviews_MVC.Models.Entities.Movie
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="row mt-5">
+  <div class="col-6">
+    <img class="w-100"  src="@Model.Image" alt="Alternate Text" />
+  </div>
+  <div class="col-6">
+   
+       <h2>@Model.Title</h2>
+       <p> Rating: @Model.Rating</p>
+  
+   
+    <p>@Model.Description</p>
+  </div>
+ 
+</div>
+<div class="row">
+    
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

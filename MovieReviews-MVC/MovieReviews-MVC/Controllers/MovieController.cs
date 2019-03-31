@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MovieReviews_MVC.Models;
+using MovieReviews_MVC.Models.ViewModels;
 
 namespace MovieReviews_MVC.Controllers
 {
@@ -13,14 +14,21 @@ namespace MovieReviews_MVC.Controllers
         public ActionResult Index()
         {
           var ctx = ApplicationDbContext.Create();
-          var movies = ctx.Movies.ToList();
-            return View(ctx.Movies.ToList());
+          var model = ctx.Movies.Select(m => new MoviesViewModel()
+          {
+            Id = m.Id, Title = m.Title, Image = m.Image, Rating = m.Rating
+          }).ToList();     
+
+          
+            return View(model);
         }
 
         // GET: Movie/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+          var ctx = ApplicationDbContext.Create();
+          var movie = ctx.Movies.Find(id);
+            return View(movie);
         }
 
         // GET: Movie/Create
