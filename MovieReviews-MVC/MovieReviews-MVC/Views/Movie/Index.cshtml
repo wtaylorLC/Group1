@@ -10,15 +10,7 @@
 <div class="row flex-wrap">
   @foreach (var movie in Model)
   {
-    <div class="col-4 p-4">
-      <a class="card" href="@Url.Action("Details", "Movie", new {id = movie.Id})">
-        <img class="card-img-top" src="@movie.Image" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title text-capitalize text-center">@movie.Title</h5>
-          <p>Rating: @movie.Rating</p>
-        </div>
-      </a>
-    </div>
+    @Html.Partial("_MovieCard", movie)
   }
 
   </div>
