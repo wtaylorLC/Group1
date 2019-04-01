@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Bogus;
 using MovieReviews_MVC.Models;
 using MovieReviews_MVC.Models.ViewModels;
 
@@ -28,7 +29,12 @@ namespace MovieReviews_MVC.Controllers
         {
           var ctx = ApplicationDbContext.Create();
           var movie = ctx.Movies.Find(id);
-            return View(movie);
+
+          var model = new CommentsViewModel();
+          model.Movie = movie;
+           
+          
+            return View(model);
         }
 
         // GET: Movie/Create
