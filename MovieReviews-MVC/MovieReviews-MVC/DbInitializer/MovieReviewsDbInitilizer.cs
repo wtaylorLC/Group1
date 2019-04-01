@@ -29,7 +29,7 @@ namespace MovieReviews_MVC.DbInitializer
         .RuleFor(m => m.Length, f => f.Random.Int(60, 180))
         .RuleFor(m => m.Rating, f => f.Random.Int(0, 10))
         .RuleFor(m => m.Image, f => f.Image.PicsumUrl(320, 320))
-        .RuleFor(m => m.Description, f => f.Lorem.Text())
+        .RuleFor(m => m.Description, f => f.Lorem.Sentences())
         .Generate(20);
 
       context.Movies.AddRange(movies);

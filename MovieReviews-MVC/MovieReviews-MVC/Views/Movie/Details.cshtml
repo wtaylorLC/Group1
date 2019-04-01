@@ -1,48 +1,74 @@
-﻿@model MovieReviews_MVC.Models.Entities.Movie
+﻿@model MovieReviews_MVC.Models.ViewModels.CommentsViewModel
 
 @{
   ViewBag.Title = "Details";
 }
-
+}
+<div class="row mt-5">
+  <a href="@Url.Action("Index")">
+    <i class="fas fa-chevron-left"></i><span class="d-inline-block ml-2">Back to Movies</span>
+  </a>
+</div>
 <div class="row mt-5">
   <div class="col-6">
-    <img class="w-100" src="@Model.Image" alt="Alternate Text" />
+    <img class="w-100" src="@Model.Movie.Image" alt="Alternate Text" />
   </div>
-  <div class="col-6">
+  <div class="col-6 pt-3">
 
-    <h2>@Model.Title</h2>
-    <p> Rating: @Model.Rating</p>
+    <h2 class="mb-5">@Model.Movie.Title</h2>
+    <p class="text-capitalize"> Rating: @Model.Movie.Rating</p>
 
 
-    <p>@Model.Description</p>
+    <p>@Model.Movie.Description</p>
+
+    <p>Director: <a href="#">Francis Ford Coppola</a></p>
+    <p>
+      Actors:
+      @foreach (var actor in new string[]
+      {
+        "Marlon Brando", "Don Vito Corleone",
+        "Al Pacino", "Michael Corleone", "James Caan", "Sonny Corleone",
+        "Richard S. Castellano", "Robert Duvall", "Sterling Hayden",
+        "John Marley"
+      })
+      {
+        <a href="#">@actor,</a> }
+    </p>
   </div>
 
 </div>
 <div class="row">
 
 </div>
-<p>
-  @Html.ActionLink("Back to List", "Index")
-</p>
 
-<ul class="nav nav-tabs">
+
+<ul class="nav nav-tabs mt-4">
   <li class="nav-item">
     <a class="nav-link active" data-toggle="tab" href="#comments">Comments</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#profile">Reviews</a>
+    <a class="nav-link" data-toggle="tab" href="#reviews">Reviews</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" data-toggle="tab" href="#news">Latest News</a>
   </li>
- 
+
 </ul>
 <div id="myTabContent" class="tab-content">
   <div class="tab-pane fade show active" id="comments">
-    <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+    @foreach (var comment in @Model.FakeComments)
+    {
+      @Html.Partial("_CommentPartial", comment)
+    }
+
   </div>
-  <div class="tab-pane fade" id="profile">
-    <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.</p>
+  <div class="tab-pane fade" id="reviews">
+    <div class="mt-3">
+      @foreach (var num in new[] { 1, 2, 3, 4, 5, 6 })
+      {
+        @Html.Partial("_ReviewCard")
+      }
+    </div>
   </div>
   <div class="tab-pane fade" id="news">
     <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork.</p>

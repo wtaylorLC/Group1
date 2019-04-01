@@ -1,0 +1,12 @@
+﻿@model MovieReviews_MVC.Models.ViewModels.MoviesViewModel
+
+
+<div class="col-4 p-4">
+  <a class="card" href="@Url.Action("Details", "Movie", new {id = (int)@Model.Id})">
+    <img class="card-img-top" src="@Model.Image" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title text-capitalize text-center">@Model.Title</h5>
+      <p>Rating: @Model.Rating</p>
+    </div>
+  </a>
+</div>
