@@ -47,6 +47,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Bogus, Version=26.0.2.0, Culture=neutral, PublicKeyToken=fa1bb3f3f218129a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bogus.26.0.2\lib\net40\Bogus.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.TelemetryCorrelation, Version=1.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.5\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
     </Reference>
@@ -173,24 +176,97 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\FilmCrewMembersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MovieController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903281300139_Initial.cs" />
+    <Compile Include="Migrations\201903281300139_Initial.Designer.cs">
+      <DependentUpon>201903281300139_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903311930071_MovieRatingChangedToInt.cs" />
+    <Compile Include="Migrations\201903311930071_MovieRatingChangedToInt.Designer.cs">
+      <DependentUpon>201903311930071_MovieRatingChangedToInt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904010340148_AddReviewsToMovie.cs" />
+    <Compile Include="Migrations\201904010340148_AddReviewsToMovie.Designer.cs">
+      <DependentUpon>201904010340148_AddReviewsToMovie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904010400107_AddFilmCrewMembersToMovie.cs" />
+    <Compile Include="Migrations\201904010400107_AddFilmCrewMembersToMovie.Designer.cs">
+      <DependentUpon>201904010400107_AddFilmCrewMembersToMovie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904020435512_AddFilmcrewMembers.cs" />
+    <Compile Include="Migrations\201904020435512_AddFilmcrewMembers.Designer.cs">
+      <DependentUpon>201904020435512_AddFilmcrewMembers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Configurations\ReviewEntityDbConfiguration.cs" />
+    <Compile Include="Models\Entities\Article.cs" />
+    <Compile Include="Models\Entities\Comment.cs" />
+    <Compile Include="Models\Entities\FilmCrewMember.cs" />
+    <Compile Include="Models\Entities\Genre.cs" />
+    <Compile Include="Models\Entities\Movie.cs" />
+    <Compile Include="Models\Configurations\GenreEntityDbConfiguration.cs" />
+    <Compile Include="Models\Entities\MovieRole.cs" />
+    <Compile Include="Models\Entities\Review.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="DbInitializer\MovieReviewsDbInitilizer.cs" />
+    <Compile Include="Models\Configurations\MovieEntityDbConfiguration.cs" />
+    <Compile Include="Models\ViewModels\CommentsViewModel.cs" />
+    <Compile Include="Models\ViewModels\FilmCrewMemberCardModel.cs" />
+    <Compile Include="Models\ViewModels\MoviesViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\aspnet-MovieReviews-MVC-20190321093648.mdf" />
+    <Content Include="App_Data\aspnet-MovieReviews-MVC-20190321093648_log.ldf">
+      <DependentUpon>aspnet-MovieReviews-MVC-20190321093648.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font-awesome\css\all.css" />
+    <Content Include="Content\font-awesome\css\all.min.css" />
+    <Content Include="Content\font-awesome\css\brands.css" />
+    <Content Include="Content\font-awesome\css\brands.min.css" />
+    <Content Include="Content\font-awesome\css\fontawesome.css" />
+    <Content Include="Content\font-awesome\css\fontawesome.min.css" />
+    <Content Include="Content\font-awesome\css\regular.css" />
+    <Content Include="Content\font-awesome\css\regular.min.css" />
+    <Content Include="Content\font-awesome\css\solid.css" />
+    <Content Include="Content\font-awesome\css\solid.min.css" />
+    <Content Include="Content\font-awesome\css\svg-with-js.css" />
+    <Content Include="Content\font-awesome\css\svg-with-js.min.css" />
+    <Content Include="Content\font-awesome\css\v4-shims.css" />
+    <Content Include="Content\font-awesome\css\v4-shims.min.css" />
+    <Content Include="Content\font-awesome\js\all.js" />
+    <Content Include="Content\font-awesome\js\all.min.js" />
+    <Content Include="Content\font-awesome\js\brands.js" />
+    <Content Include="Content\font-awesome\js\brands.min.js" />
+    <Content Include="Content\font-awesome\js\fontawesome.js" />
+    <Content Include="Content\font-awesome\js\fontawesome.min.js" />
+    <Content Include="Content\font-awesome\js\regular.js" />
+    <Content Include="Content\font-awesome\js\regular.min.js" />
+    <Content Include="Content\font-awesome\js\solid.js" />
+    <Content Include="Content\font-awesome\js\solid.min.js" />
+    <Content Include="Content\font-awesome\js\v4-shims.js" />
+    <Content Include="Content\font-awesome\js\v4-shims.min.js" />
+    <Content Include="Content\font-awesome\sprites\brands.svg" />
+    <Content Include="Content\font-awesome\sprites\regular.svg" />
+    <Content Include="Content\font-awesome\sprites\solid.svg" />
+    <Content Include="Content\font-awesome\webfonts\fa-brands-400.svg" />
+    <Content Include="Content\font-awesome\webfonts\fa-regular-400.svg" />
+    <Content Include="Content\font-awesome\webfonts\fa-solid-900.svg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -216,6 +292,19 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="libman.json" />
+    <Content Include="Content\font-awesome\webfonts\fa-brands-400.eot" />
+    <Content Include="Content\font-awesome\webfonts\fa-brands-400.ttf" />
+    <Content Include="Content\font-awesome\webfonts\fa-brands-400.woff" />
+    <Content Include="Content\font-awesome\webfonts\fa-brands-400.woff2" />
+    <Content Include="Content\font-awesome\webfonts\fa-regular-400.eot" />
+    <Content Include="Content\font-awesome\webfonts\fa-regular-400.ttf" />
+    <Content Include="Content\font-awesome\webfonts\fa-regular-400.woff" />
+    <Content Include="Content\font-awesome\webfonts\fa-regular-400.woff2" />
+    <Content Include="Content\font-awesome\webfonts\fa-solid-900.eot" />
+    <Content Include="Content\font-awesome\webfonts\fa-solid-900.ttf" />
+    <Content Include="Content\font-awesome\webfonts\fa-solid-900.woff" />
+    <Content Include="Content\font-awesome\webfonts\fa-solid-900.woff2" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -247,7 +336,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -278,10 +366,19 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Movie\Index.cshtml" />
+    <Content Include="Views\Movie\Details.cshtml" />
+    <Content Include="Views\Movie\_ReviewCard.cshtml" />
+    <Content Include="Views\Shared\_CommentPartial.cshtml" />
+    <Content Include="Views\Movie\_MovieCard.cshtml" />
+    <Content Include="Views\FilmCrewMembers\Create.cshtml" />
+    <Content Include="Views\FilmCrewMembers\Delete.cshtml" />
+    <Content Include="Views\FilmCrewMembers\Details.cshtml" />
+    <Content Include="Views\FilmCrewMembers\Edit.cshtml" />
+    <Content Include="Views\FilmCrewMembers\Index.cshtml" />
+    <Content Include="Views\FilmCrewMembers\_FilmCrewMemberCard.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
@@ -292,6 +389,23 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201903281300139_Initial.resx">
+      <DependentUpon>201903281300139_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903311930071_MovieRatingChangedToInt.resx">
+      <DependentUpon>201903311930071_MovieRatingChangedToInt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904010340148_AddReviewsToMovie.resx">
+      <DependentUpon>201904010340148_AddReviewsToMovie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904010400107_AddFilmCrewMembersToMovie.resx">
+      <DependentUpon>201904010400107_AddFilmCrewMembersToMovie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904020435512_AddFilmcrewMembers.resx">
+      <DependentUpon>201904020435512_AddFilmcrewMembers.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,51 @@
+﻿@model MovieReviews_MVC.Models.ViewModels.FakeComment
+
+<div class="row pt-3 mx-0">
+  <div class="mb-3">
+    <div class="row flex-grow-1" >
+      <div class="col-1">
+        <img class="img-thumbnail w-100" style="object-fit: cover" src="@Model.AvatarUri" alt="Alternate Text" />
+      </div>
+      <div class=" col-11">
+        <h5 class="card-title font-weight-bold text-black-50 d-inline-block">@Model.Username</h5>
+        
+        
+        <p class="card-text">
+         @Model.CommentBody
+        </p>
+      </div>
+    </div>
+    <div class="position-relative mt-1" style="left: 100px;">
+      <span> @Model.DateCreated.Subtract(DateTime.Now).Days days ago</span>
+      <span class="d-inline-block mx-4">&bull;</span>
+      <a href="#">Reply</a>
+      <span class="d-inline-block mx-4">&bull;</span>
+      <a href="#">Report</a>
+    </div>
+  </div>
+  @foreach (var comment in @Model.FakeComments)
+  {
+    <div class="mb-3 ml-5">
+      <div class="row flex-grow-1">
+        <div class="col-1">
+          <img class="img-thumbnail" src="@comment.AvatarUri" alt="Alternate Text" />
+        </div>
+        <div class=" col-11">
+          <h5 class="card-title font-weight-bold text-black-50 d-inline-block">@comment.Username</h5>
+        
+        
+          <p class="card-text">
+           @comment.CommentBody
+          </p>
+        </div>
+      </div>
+      <div class="position-relative mt-1" style="left: 100px;">
+        <span> @comment.DateCreated.Subtract(DateTime.Now).Days days ago</span>
+        <span class="d-inline-block mx-4">&bull;</span>
+        <a href="#">Reply</a>
+        <span class="d-inline-block mx-4">&bull;</span>
+        <a href="#">Report</a>
+      </div>
+    </div>
+  }
+</div>

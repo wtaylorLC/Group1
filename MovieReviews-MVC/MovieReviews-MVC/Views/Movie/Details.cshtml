@@ -1,0 +1,76 @@
+﻿@model MovieReviews_MVC.Models.ViewModels.CommentsViewModel
+
+@{
+  ViewBag.Title = "Details";
+}
+}
+<div class="row mt-5">
+  <a href="@Url.Action("Index")">
+    <i class="fas fa-chevron-left"></i><span class="d-inline-block ml-2">Back to Movies</span>
+  </a>
+</div>
+<div class="row mt-5">
+  <div class="col-6">
+    <img class="w-100" src="@Model.Movie.Image" alt="Alternate Text" />
+  </div>
+  <div class="col-6 pt-3">
+
+    <h2 class="mb-5">@Model.Movie.Title</h2>
+    <p class="text-capitalize"> Rating: @Model.Movie.Rating</p>
+
+
+    <p>@Model.Movie.Description</p>
+
+    <p>Director/s: 
+      @foreach (var director in @Model.Directors)
+      {
+        <a href="@Url.Action("Details","FilmCrewMembers", new { id = director.Id})">@director.Name</a>
+      }
+      </p>
+    <p>
+      Actors:
+      @foreach (var actor in @Model.Actors)
+      {
+      <a href="@Url.Action("Details","FilmCrewMembers", new { id = actor.Id})">@actor.Name</a>
+      }
+    </p>
+  </div>
+
+</div>
+<div class="row">
+
+</div>
+
+
+<ul class="nav nav-tabs mt-4">
+  <li class="nav-item">
+    <a class="nav-link active" data-toggle="tab" href="#comments">Comments</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#reviews">Reviews</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#news">Latest News</a>
+  </li>
+
+</ul>
+<div id="myTabContent" class="tab-content">
+  <div class="tab-pane fade show active" id="comments">
+    @foreach (var comment in @Model.FakeComments)
+    {
+      @Html.Partial("_CommentPartial", comment)
+    }
+
+  </div>
+  <div class="tab-pane fade" id="reviews">
+    <div class="mt-3">
+      @foreach (var num in new[] { 1, 2, 3, 4, 5, 6 })
+      {
+        @Html.Partial("_ReviewCard")
+      }
+    </div>
+  </div>
+  <div class="tab-pane fade" id="news">
+    <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork.</p>
+  </div>
+</div>
