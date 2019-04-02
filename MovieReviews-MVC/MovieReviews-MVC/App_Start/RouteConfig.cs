@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.UI.WebControls;
 
 namespace MovieReviews_MVC
 {
@@ -13,6 +14,10 @@ namespace MovieReviews_MVC
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+          routes.MapRoute(
+            name: "Filmcrew",
+            url: "{controller}/{action}/{crewRole}",
+            defaults: new { controller = "FilmCrewMembers", action = "Index", crewRole= UrlParameter.Optional});
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

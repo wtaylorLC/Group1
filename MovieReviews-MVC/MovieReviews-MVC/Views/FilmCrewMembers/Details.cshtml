@@ -1,0 +1,60 @@
+﻿@using MovieReviews_MVC.Models.Entities
+@model MovieReviews_MVC.Models.Entities.FilmCrewMember
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div class="row mt-5">
+  <div class="col-4">
+    <img class="w-100" src="@Model.ImageUri" alt="Alternate Text" />
+  </div>
+  <div class="col-8">
+    <h4>@Model.Role - @Model.Name</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+      <dt>
+        @Html.DisplayNameFor(model => model.Bio)
+      </dt>
+
+      <dd>
+        @Html.DisplayFor(model => model.Bio)
+      </dd>
+
+      <dt>
+        @Html.DisplayNameFor(model => model.DoB)
+      </dt>
+
+      <dd>
+        @Html.DisplayFor(model => model.DoB)
+      </dd>
+
+    </dl>
+  </div>
+</div>
+<div class="row mt-4">
+  <div class="col-12">
+    @if (Model.Role == MovieRole.Actor)
+    {
+      <h4>Actor's Movies</h4>
+    }
+    else
+    {
+      <h4>Director's Movies</h4>
+    }
+
+    @foreach (var movie in @Model.Movies)
+    {
+      <a class="text-capitalize" href="@Url.Action("Details", "Movie", new {id = movie.Id})">
+        @movie.Title (@movie.Year),
+      </a>
+    }
+  </div>
+ 
+</div>
+<p class="mt-5">
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
