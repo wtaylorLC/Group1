@@ -19,8 +19,8 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">@Html.ActionLink("Movies", "Index", "Movie", "", new { @class = "nav-link" })</li>
-            <li class="nav-item">@Html.ActionLink("Actors", "Index", "Home", "", new { @class = "nav-link" })</li>
-            <li class="nav-item">@Html.ActionLink("Directors", "Index", "Home", "", new { @class = "nav-link" })</li>
+            <li class="nav-item">@Html.ActionLink("Actors", "Index", "FilmCrewMembers", new {crewRole = "Actor"}, new { @class = "nav-link" })</li>
+            <li class="nav-item">@Html.ActionLink("Directors", "Index", "FilmCrewMembers", new { crewRole = "Director" }, new { @class = "nav-link" })</li>
             <li class="nav-item">@Html.ActionLink("Reviews", "Index", "Home", "", new { @class = "nav-link" })</li>
             <li class="nav-item">@Html.ActionLink("News", "Index", "Home", "", new { @class = "nav-link" })</li>
             <li class="nav-item">@Html.ActionLink("About", "About", "Home", "", new { @class = "nav-link" })</li>
@@ -36,7 +36,7 @@
     @*</div>*@
 </nav>
 
-<div class="container body-content">
+<div class="container body-content pt-5">
     @RenderBody()
     <hr/>
     <footer>
