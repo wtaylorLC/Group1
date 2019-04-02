@@ -1,8 +1,10 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using Bogus;
 using MovieReviews_MVC.Models;
 using MovieReviews_MVC.Models.Entities;
+using Newtonsoft.Json;
 
 namespace MovieReviews_MVC.DbInitializer
 {
@@ -33,6 +35,28 @@ namespace MovieReviews_MVC.DbInitializer
         .Generate(20);
 
       context.Movies.AddRange(movies);
+      #endregion
+
+      #region FilmCrewMember
+      var crew = new Faker<FilmCrewMember>()
+        .Rules((f, c) =>
+        {
+          c.Id = f.IndexFaker;
+          c.Bio = f.Lorem.Sentences();
+          c.DoB = f.Date.Past(60, new DateTime(1990, 2, 15));
+          c.ImageUri = f.Internet.Avatar();
+          c.Name = f.Name.FullName();
+          c.Role = (MovieRole)f.Random.WeightedRandom(new int[] { 0, 1 }, new float[]
+          {
+            0.8f, 0.2f
+          });
+
+        }).Generate(40);
+      var random = new Bogus.Randomizer();
+      var moviesArr = movies.ToArray();
+      crew.ForEach(c => c.Movies = random.ArrayElements<Movie>(moviesArr, random.Number(3, 10)));
+
+      context.FilmCrewMembers.AddRange(crew);
       #endregion
 
       base.Seed(context);

@@ -10,6 +10,9 @@ namespace MovieReviews_MVC.Models.ViewModels
   {
     public List<FakeComment> FakeComments;
     public Movie Movie { get; set; }
+    public List<FilmCrewMember> Directors { get; set; }
+    public List<FilmCrewMember> Actors { get; set; }
+    
     public CommentsViewModel()
     {
       FakeComments = MakeComments(5, 5);
