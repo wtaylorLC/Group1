@@ -198,12 +198,16 @@
     <Compile Include="Migrations\201904010400107_AddFilmCrewMembersToMovie.Designer.cs">
       <DependentUpon>201904010400107_AddFilmCrewMembersToMovie.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904020435512_AddFilmcrewMembers.cs" />
+    <Compile Include="Migrations\201904020435512_AddFilmcrewMembers.Designer.cs">
+      <DependentUpon>201904020435512_AddFilmcrewMembers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Configurations\ReviewEntityDbConfiguration.cs" />
     <Compile Include="Models\Entities\Article.cs" />
     <Compile Include="Models\Entities\Comment.cs" />
-    <Compile Include="Models\Entities\FilmCrew.cs" />
+    <Compile Include="Models\Entities\FilmCrewMember.cs" />
     <Compile Include="Models\Entities\Genre.cs" />
     <Compile Include="Models\Entities\Movie.cs" />
     <Compile Include="Models\Configurations\GenreEntityDbConfiguration.cs" />
@@ -390,6 +394,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904010400107_AddFilmCrewMembersToMovie.resx">
       <DependentUpon>201904010400107_AddFilmCrewMembersToMovie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904020435512_AddFilmcrewMembers.resx">
+      <DependentUpon>201904020435512_AddFilmcrewMembers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

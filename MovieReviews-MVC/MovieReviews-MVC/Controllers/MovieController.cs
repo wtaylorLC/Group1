@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Bogus;
 using MovieReviews_MVC.Models;
+using MovieReviews_MVC.Models.Entities;
 using MovieReviews_MVC.Models.ViewModels;
 
 namespace MovieReviews_MVC.Controllers
@@ -29,12 +30,15 @@ namespace MovieReviews_MVC.Controllers
         {
           var ctx = ApplicationDbContext.Create();
           var movie = ctx.Movies.Find(id);
+          var filmCrew = movie.FilmCrewMembers;
 
+          
           var model = new CommentsViewModel();
           model.Movie = movie;
-           
-          
-            return View(model);
+          model.Directors = filmCrew.Where(c => c.Role == MovieRole.Director).ToList();
+          model.Actors = filmCrew.Where(c => c.Role == MovieRole.Actor).ToList();
+
+          return View(model);
         }
 
         // GET: Movie/Create

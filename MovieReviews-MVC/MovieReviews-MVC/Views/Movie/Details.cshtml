@@ -21,18 +21,18 @@
 
     <p>@Model.Movie.Description</p>
 
-    <p>Director: <a href="#">Francis Ford Coppola</a></p>
+    <p>Director/s: 
+      @foreach (var director in @Model.Directors)
+      {
+        <a href="#">@director.Name</a>
+      }
+      </p>
     <p>
       Actors:
-      @foreach (var actor in new string[]
+      @foreach (var actor in @Model.Actors)
       {
-        "Marlon Brando", "Don Vito Corleone",
-        "Al Pacino", "Michael Corleone", "James Caan", "Sonny Corleone",
-        "Richard S. Castellano", "Robert Duvall", "Sterling Hayden",
-        "John Marley"
-      })
-      {
-        <a href="#">@actor,</a> }
+        <a href="#">@actor.Name,</a>
+      }
     </p>
   </div>
 
