@@ -5,7 +5,7 @@ using System.Web;
 
 namespace MovieReviews_MVC.Models.Entities
 {
-  public class FilmCrew
+  public class FilmCrewMember
   {
     public int Id { get; set; }
     public string Name { get; set; }

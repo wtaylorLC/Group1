@@ -19,7 +19,7 @@ namespace MovieReviews_MVC.Models.Entities
 
     public virtual ICollection<Genre> Genres { get; set; }
     public virtual ICollection<Review> Reviews { get; set; }
-    public virtual ICollection<FilmCrew> FilmCrewMembers { get; set; }
+    public virtual ICollection<FilmCrewMember> FilmCrewMembers { get; set; }
     //public virtual ICollection<Comment> Comments { get; set; }
     
   }
