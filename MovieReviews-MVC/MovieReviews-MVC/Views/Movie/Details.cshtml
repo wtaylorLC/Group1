@@ -24,14 +24,14 @@
     <p>Director/s: 
       @foreach (var director in @Model.Directors)
       {
-        <a href="#">@director.Name</a>
+        <a href="@Url.Action("Details","FilmCrewMembers", new { id = director.Id})">@director.Name</a>
       }
       </p>
     <p>
       Actors:
       @foreach (var actor in @Model.Actors)
       {
-        <a href="#">@actor.Name,</a>
+      <a href="@Url.Action("Details","FilmCrewMembers", new { id = actor.Id})">@actor.Name</a>
       }
     </p>
   </div>
