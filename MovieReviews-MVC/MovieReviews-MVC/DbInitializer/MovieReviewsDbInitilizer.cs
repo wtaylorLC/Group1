@@ -38,6 +38,33 @@ namespace MovieReviews_MVC.DbInitializer
       
       #region Users
 
+      var store = new UserStore<ApplicationUser>(context);
+      var manager = new UserManager<ApplicationUser>(store);
+
+      #region Admin user account
+
+      var admin = new ApplicationUser()
+      {
+        Id = Guid.NewGuid().ToString(),
+        UserName = "admin@gmail.com",
+        Email = "admin@gmail.com",
+        EmailConfirmed = true
+      };
+
+
+      var checkAdminUser = manager.Create(admin, "@Password123");
+      if (checkAdminUser.Succeeded)
+      {
+        manager.AddToRole(admin.Id, adminRoleName);
+      }
+      else
+      {
+        var errors = checkAdminUser.Errors;
+        errors.ForEach(e => Debug.WriteLine(e));
+      }
+      
+
+      #endregion
       #endregion
 
       #region Gernes
