@@ -65,6 +65,34 @@ namespace MovieReviews_MVC.DbInitializer
       
 
       #endregion
+
+      var users = new Faker<ApplicationUser>()
+        .Rules((f, u) =>
+        {
+          var userEmail = f.Internet.Email();
+            u.Id = Guid.NewGuid().ToString();
+            u.UserName = userEmail;
+            u.Email = userEmail;
+            u.EmailConfirmed = true;
+          })
+        .Generate(userCount);
+
+      users.ForEach(u =>
+      {
+        var checkUser = manager.Create(u, "@Password123");
+
+        if (checkUser.Succeeded)
+        {
+          manager.AddToRole(u.Id, userRoleName);
+        }
+        else
+        {
+          checkUser.Errors.ForEach(e => Debug.WriteLine(e));
+        }
+        
+      });
+
+
       #endregion
 
       #region Gernes
