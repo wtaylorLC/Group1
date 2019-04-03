@@ -1,7 +1,13 @@
-using System;
+﻿using System;
+using System.Configuration;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
+using System.Security.Policy;
 using Bogus;
+using Microsoft.Ajax.Utilities;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using MovieReviews_MVC.Models;
 using MovieReviews_MVC.Models.Entities;
 using Newtonsoft.Json;
@@ -110,7 +116,7 @@ namespace MovieReviews_MVC.DbInitializer
         .RuleFor(m => m.Rating, f => f.Random.Int(0, 10))
         .RuleFor(m => m.Image, f => f.Image.PicsumUrl(320, 320))
         .RuleFor(m => m.Description, f => f.Lorem.Sentences())
-        .Generate(20);
+        .Generate(movieCount);
 
       context.Movies.AddRange(movies);
       #endregion
@@ -119,7 +125,6 @@ namespace MovieReviews_MVC.DbInitializer
       var crew = new Faker<FilmCrewMember>()
         .Rules((f, c) =>
         {
-          c.Id = f.IndexFaker;
           c.Bio = f.Lorem.Sentences();
           c.DoB = f.Date.Past(60, new DateTime(1990, 2, 15));
           c.ImageUri = f.Internet.Avatar();
@@ -129,13 +134,37 @@ namespace MovieReviews_MVC.DbInitializer
             0.8f, 0.2f
           });
 
-        }).Generate(40);
+        })
+        .Generate(crewCount);
+
       var random = new Bogus.Randomizer();
       var moviesArr = movies.ToArray();
       crew.ForEach(c => c.Movies = random.ArrayElements<Movie>(moviesArr, random.Number(3, 10)));
 
       context.FilmCrewMembers.AddRange(crew);
       #endregion
+
+      #region Reviews
+
+      // Movie Ids - auto incremented, ids will start at 0 to number of movies - 1
+      var movieIds = Enumerable.Range(0, movieCount - 1).ToArray();
+
+      var reviews = new Faker<Review>()
+        .Rules((f, r) =>
+        {
+          r.AuthorId = f.PickRandom(users.Select(u => u.Id));
+          r.ReviewedMovieId = f.Random.ArrayElement(movieIds);
+          r.Title = f.Lorem.Sentence();
+          r.Body = f.Lorem.Sentences();
+          r.CreatedOn = f.Date.Past();
+          r.Rating = f.Random.Int(0, 10);
+        })
+        .Generate(reviewCount);
+
+      context.Reviews.AddRange(reviews);
+      #endregion
+
+      context.Users.ForEach(u => u.EmailConfirmed =true);
 
       base.Seed(context);
     }
