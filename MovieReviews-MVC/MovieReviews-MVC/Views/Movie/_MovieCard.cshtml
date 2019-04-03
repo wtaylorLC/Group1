@@ -4,9 +4,9 @@
 <div class="col-4 p-4">
   <a class="card" href="@Url.Action("Details", "Movie", new {id = (int)@Model.Id})">
     <img class="card-img-top" src="@Model.Image" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title text-capitalize text-center">@Model.Title</h5>
-      <p>Rating: @Model.Rating</p>
+    <div class="card-body  text-center">
+      <p><i class="fas fa-star" style="color: #FFEF44; -webkit-text-stroke: 1px black "></i> @Model.Rating / 10</p>
+      <h5 class="card-title text-capitalize">@Model.Title</h5>
     </div>
   </a>
 </div>
