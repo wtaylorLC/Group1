@@ -19,6 +19,23 @@ namespace MovieReviews_MVC.DbInitializer
       int reviewCount = 20;
       int userCount = 30;
 
+      #region UserRoles
+
+      const string adminRoleName = "Admin";
+      const string userRoleName = "UserNormal";
+
+        var roleStore = new RoleStore<IdentityRole>(context);
+        var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+        var adminRole = new IdentityRole { Name = adminRoleName };
+        var userRole = new IdentityRole { Name = userRoleName };
+
+        roleManager.Create(adminRole);
+        roleManager.Create(userRole);
+
+
+      #endregion
+      
       #region Users
 
       #endregion
