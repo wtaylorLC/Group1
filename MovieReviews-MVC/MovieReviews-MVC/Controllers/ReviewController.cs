@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MovieReviews_MVC.Models;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,6 +16,12 @@ namespace MovieReviews_MVC.Controllers
             return View();
         }
 
+        public JsonResult MovieReviews(int id)
+        {
+            var ctx = new ApplicationDbContext();
+            var reviews = ctx.Reviews.Where(r => r.ReviewedMovieId == id);
+            return Json(reviews);
+        }
         // GET: Review/Details/5
         public ActionResult Details(int id)
         {
