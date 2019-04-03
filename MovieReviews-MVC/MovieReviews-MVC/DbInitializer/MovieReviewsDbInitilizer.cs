@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using Bogus;
@@ -13,6 +13,12 @@ namespace MovieReviews_MVC.DbInitializer
 
     protected override void Seed(ApplicationDbContext context)
     {
+      // int userCount = 0;
+      int movieCount = 20;
+      int crewCount = 40; //weight actors 0.8 directors 0.2
+      int reviewCount = 20;
+      int userCount = 30;
+
       #region Users
 
       #endregion
