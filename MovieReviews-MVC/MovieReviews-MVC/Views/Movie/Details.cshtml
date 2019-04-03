@@ -13,7 +13,7 @@
   <div class="col-6">
     <img class="w-100" src="@Model.Movie.Image" alt="Alternate Text" />
   </div>
-  <div class="col-6 pt-3">
+  <div class="col-6 pt-3 d-flex flex-column">
 
     <h2 class="mb-5">@Model.Movie.Title</h2>
     <p class="text-capitalize"> Rating: @Model.Movie.Rating</p>
@@ -21,12 +21,13 @@
 
     <p>@Model.Movie.Description</p>
 
-    <p>Director/s: 
+    <p>
+      Director/s:
       @foreach (var director in @Model.Directors)
       {
         <a href="#">@director.Name</a>
       }
-      </p>
+    </p>
     <p>
       Actors:
       @foreach (var actor in @Model.Actors)
@@ -34,6 +35,8 @@
         <a href="#">@actor.Name,</a>
       }
     </p>
+
+    <button data-toggle="modal" data-target="#review-modal" class="btn btn-outline-primary d-inline" style="width: 250px;">Review this title</button>
   </div>
 
 </div>
@@ -72,5 +75,49 @@
   </div>
   <div class="tab-pane fade" id="news">
     <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork.</p>
+  </div>
+</div>
+
+<div class="modal fade" id="review-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">@Model.Movie.Title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="my-3">
+          <div class="form-group">
+            <label for="movie-rating" class="col-form-label mb-1">Overall rating</label>
+            <div id="movie-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+              <i class="far fa-star"></i>
+              <i class="far fa-star"></i>
+              <i class="far fa-star"></i>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="review-title" class="col-form-label mb-1">Add a headline</label>
+            <input placeholder="What's most important to know?" type="text" class="form-control" id="review-title">
+          </div>
+          <div class="form-group">
+            <label for="review-text" class="col-form-label mb-1">Write your review</label>
+            <textarea placeholder="What did you like or dislike?" class="form-control" style="height: 250px;" id="review-text"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
   </div>
 </div>
