@@ -180,6 +180,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MovieController.cs" />
+    <Compile Include="Controllers\ReviewController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -202,6 +203,10 @@
     <Compile Include="Migrations\201904020435512_AddFilmcrewMembers.cs" />
     <Compile Include="Migrations\201904020435512_AddFilmcrewMembers.Designer.cs">
       <DependentUpon>201904020435512_AddFilmcrewMembers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904030832164_AddReviews.cs" />
+    <Compile Include="Migrations\201904030832164_AddReviews.Designer.cs">
+      <DependentUpon>201904030832164_AddReviews.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -377,6 +382,7 @@
     <Content Include="Views\FilmCrewMembers\Edit.cshtml" />
     <Content Include="Views\FilmCrewMembers\Index.cshtml" />
     <Content Include="Views\FilmCrewMembers\_FilmCrewMemberCard.cshtml" />
+    <Content Include="Views\Review\Details.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -405,6 +411,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904020435512_AddFilmcrewMembers.resx">
       <DependentUpon>201904020435512_AddFilmcrewMembers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904030832164_AddReviews.resx">
+      <DependentUpon>201904030832164_AddReviews.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
