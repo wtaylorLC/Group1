@@ -10,15 +10,22 @@ namespace MovieReviews_MVC.Controllers
 {
     public class ReviewController : Controller
     {
+      private ApplicationDbContext ctx;
+
+      public ReviewController()
+      {
+        ctx = new ApplicationDbContext();
+      }
         // GET: Review
         public ActionResult Index()
         {
+          var reviews = ctx.Reviews;
+
             return View();
         }
 
         public JsonResult MovieReviews(int id)
         {
-            var ctx = new ApplicationDbContext();
             var reviews = ctx.Reviews.Where(r => r.ReviewedMovieId == id);
             return Json(reviews);
         }
@@ -93,5 +100,14 @@ namespace MovieReviews_MVC.Controllers
                 return View();
             }
         }
-    }
+
+      protected override void Dispose(bool disposing)
+      {
+        if (disposing)
+        {
+          ctx.Dispose();
+        }
+        base.Dispose(disposing);
+      }
+  }
 }
