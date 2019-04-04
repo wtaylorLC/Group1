@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using MovieReviews_MVC.Models;
 using MovieReviews_MVC.Models.ViewModels;
 
 namespace MovieReviews_MVC.Controllers
@@ -34,12 +33,12 @@ namespace MovieReviews_MVC.Controllers
         // GET: Review/Details/5
         public ActionResult Details(int id)
         {
-            return View(_context.Reviews.FirstOrDefault(r => r.Id == id));
+            return View(ctx.Reviews.FirstOrDefault(r => r.Id == id));
         }
     //[Route("/Review/Reviews/{id:int}")]
     public PartialViewResult Reviews(int id)
       {
-        var reviews = _context.Reviews.Where(r => r.ReviewedMovieId == id).ToArray();
+        var reviews = ctx.Reviews.Where(r => r.ReviewedMovieId == id).ToArray();
 
         var vm = reviews.Select(r =>
         {
@@ -49,7 +48,7 @@ namespace MovieReviews_MVC.Controllers
             Title = r.Title,
             Body = r.Body,
             CreatedOn = r.CreatedOn.ToString("d"),
-            AuthorUsername = _context.Users.FirstOrDefault(u => u.Id == r.AuthorId).UserName
+            AuthorUsername = ctx.Users.FirstOrDefault(u => u.Id == r.AuthorId).UserName
           };
           return card;
         });
