@@ -98,7 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MovieReviews-MVC\MovieReviews-MVC.csproj">
-      <Project>{AFA44845-FBC4-4257-A8AB-4A0EC43E21C6}</Project>
+      <Project>{afa44845-fbc4-4257-a8ab-4a0ec43e21c6}</Project>
       <Name>MovieReviews-MVC</Name>
     </ProjectReference>
   </ItemGroup>

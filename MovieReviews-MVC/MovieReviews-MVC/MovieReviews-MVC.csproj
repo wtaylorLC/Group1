@@ -94,6 +94,9 @@
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.5.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.4\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -102,6 +105,12 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.4\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.4\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
@@ -176,11 +185,15 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Api\ReviewsController.cs" />
+    <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\FilmCrewMembersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MovieController.cs" />
+    <Compile Include="Controllers\ReviewController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -204,6 +217,14 @@
     <Compile Include="Migrations\201904020435512_AddFilmcrewMembers.Designer.cs">
       <DependentUpon>201904020435512_AddFilmcrewMembers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904030832164_AddReviews.cs" />
+    <Compile Include="Migrations\201904030832164_AddReviews.Designer.cs">
+      <DependentUpon>201904030832164_AddReviews.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904041751043_AddComments.cs" />
+    <Compile Include="Migrations\201904041751043_AddComments.Designer.cs">
+      <DependentUpon>201904041751043_AddComments.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Configurations\ReviewEntityDbConfiguration.cs" />
@@ -220,8 +241,11 @@
     <Compile Include="DbInitializer\MovieReviewsDbInitilizer.cs" />
     <Compile Include="Models\Configurations\MovieEntityDbConfiguration.cs" />
     <Compile Include="Models\ViewModels\CommentsViewModel.cs" />
+    <Compile Include="Models\Entities\CommentType.cs" />
     <Compile Include="Models\ViewModels\FilmCrewMemberCardModel.cs" />
+    <Compile Include="Models\ViewModels\MovieDetailsViewModel.cs" />
     <Compile Include="Models\ViewModels\MoviesViewModel.cs" />
+    <Compile Include="Models\ViewModels\ReviewCardViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -324,10 +348,12 @@
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\Site.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="twitter img.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -372,21 +398,25 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Movie\Index.cshtml" />
     <Content Include="Views\Movie\Details.cshtml" />
-    <Content Include="Views\Movie\_ReviewCard.cshtml" />
+    <Content Include="Views\Shared\_ReviewCard.cshtml" />
     <Content Include="Views\Shared\_CommentPartial.cshtml" />
-    <Content Include="Views\Movie\_MovieCard.cshtml" />
+    <Content Include="Views\Shared\_MovieCards.cshtml" />
     <Content Include="Views\FilmCrewMembers\Create.cshtml" />
     <Content Include="Views\FilmCrewMembers\Delete.cshtml" />
     <Content Include="Views\FilmCrewMembers\Details.cshtml" />
     <Content Include="Views\FilmCrewMembers\Edit.cshtml" />
     <Content Include="Views\FilmCrewMembers\Index.cshtml" />
     <Content Include="Views\FilmCrewMembers\_FilmCrewMemberCard.cshtml" />
+    <Content Include="Views\Review\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\Comment\" />
     <Folder Include="Views\Index\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
@@ -411,6 +441,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904020435512_AddFilmcrewMembers.resx">
       <DependentUpon>201904020435512_AddFilmcrewMembers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904030832164_AddReviews.resx">
+      <DependentUpon>201904030832164_AddReviews.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904041751043_AddComments.resx">
+      <DependentUpon>201904041751043_AddComments.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

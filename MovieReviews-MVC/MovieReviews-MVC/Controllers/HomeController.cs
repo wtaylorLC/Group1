@@ -12,10 +12,15 @@ namespace MovieReviews_MVC.Controllers
 {
     public class HomeController : Controller
     {
+      private ApplicationDbContext ctx;
+      public HomeController()
+      {
+        ctx = new ApplicationDbContext();
+        
+      }
         public ActionResult Index()
         {
-            var index = ApplicationDbContext.Create();
-            var model = index.Movies.Take(3).Select(m => new MoviesViewModel()
+            var model = ctx.Movies.Take(3).Select(m => new MoviesViewModel()
             {
                 Id = m.Id, Title = m.Title, Image = m.Image, Rating = m.Rating
             }).ToList();

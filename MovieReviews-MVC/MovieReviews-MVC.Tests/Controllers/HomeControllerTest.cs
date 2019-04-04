@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MovieReviews_MVC;
 using MovieReviews_MVC.Controllers;
 
 namespace MovieReviews_MVC.Tests.Controllers
 {
-    [TestClass]
+  [TestClass]
     public class HomeControllerTest
     {
         [TestMethod]
@@ -36,19 +31,6 @@ namespace MovieReviews_MVC.Tests.Controllers
 
             // Assert
             Assert.AreEqual("Your application description page.", result.ViewBag.Message);
-        }
-
-        [TestMethod]
-        public void Contact()
-        {
-            // Arrange
-            HomeController controller = new HomeController();
-
-            // Act
-            ViewResult result = controller.Contact() as ViewResult;
-
-            // Assert
-            Assert.IsNotNull(result);
         }
     }
 }

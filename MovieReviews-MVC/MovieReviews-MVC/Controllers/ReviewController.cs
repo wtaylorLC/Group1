@@ -1,69 +1,67 @@
-﻿using System;
+﻿using MovieReviews_MVC.Models;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Bogus;
-using MovieReviews_MVC.Models;
-using MovieReviews_MVC.Models.Entities;
 using MovieReviews_MVC.Models.ViewModels;
 
 namespace MovieReviews_MVC.Controllers
 {
-    public class MovieController : Controller
+    public class ReviewController : Controller
     {
-
       private ApplicationDbContext ctx;
 
-      public MovieController()
+      public ReviewController()
       {
         ctx = new ApplicationDbContext();
       }
-        // GET: Movie
+        // GET: Review
         public ActionResult Index()
         {
+          var reviews = ctx.Reviews;
+
             return View();
         }
 
-    public PartialViewResult MovieCards()
-    {
-
-      var vm = ctx.Movies.Select(m => new MoviesViewModel()
-      {
-        Id = m.Id,
-        Title = m.Title,
-        Image = m.Image,
-        Rating = m.Rating
-      }).ToList();
-
-
-
-      return PartialView("_MovieCards", vm);
-    }
-
-    // GET: Movie/Details/5
-    public ActionResult Details(int id)
+        public JsonResult MovieReviews(int id)
         {
-          var movie = ctx.Movies.Include(m => m.FilmCrewMembers).FirstOrDefault(m => m.Id == id);
-          var filmCrew = movie.FilmCrewMembers;
-
-          
-          var model = new MovieDetailsViewModel();
-          model.Movie = movie;
-          model.Directors = filmCrew.Where(c => c.Role == MovieRole.Director).ToList();
-          model.Actors = filmCrew.Where(c => c.Role == MovieRole.Actor).ToList();
-
-          return View(model);
+            var reviews = ctx.Reviews.Where(r => r.ReviewedMovieId == id);
+            return Json(reviews);
         }
+        // GET: Review/Details/5
+        public ActionResult Details(int id)
+        {
+            return View(ctx.Reviews.FirstOrDefault(r => r.Id == id));
+        }
+    //[Route("/Review/Reviews/{id:int}")]
+    public PartialViewResult Reviews(int id)
+      {
+        var reviews = ctx.Reviews.Where(r => r.ReviewedMovieId == id).ToArray();
 
-        // GET: Movie/Create
+        var vm = reviews.Select(r =>
+        {
+          var card = new ReviewCardViewModel()
+          {
+            Id = r.Id,
+            Title = r.Title,
+            Body = r.Body,
+            CreatedOn = r.CreatedOn.ToString("d"),
+            AuthorUsername = ctx.Users.FirstOrDefault(u => u.Id == r.AuthorId).UserName
+          };
+          return card;
+        });
+        return PartialView("_ReviewCard", vm);
+      }
+
+        // GET: Review/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Movie/Create
+        // POST: Review/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -79,13 +77,13 @@ namespace MovieReviews_MVC.Controllers
             }
         }
 
-        // GET: Movie/Edit/5
+        // GET: Review/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Movie/Edit/5
+        // POST: Review/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -101,13 +99,13 @@ namespace MovieReviews_MVC.Controllers
             }
         }
 
-        // GET: Movie/Delete/5
+        // GET: Review/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Movie/Delete/5
+        // POST: Review/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
