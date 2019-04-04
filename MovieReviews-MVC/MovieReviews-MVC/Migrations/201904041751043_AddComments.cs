@@ -12,10 +12,11 @@ namespace MovieReviews_MVC.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        CommentType = c.Byte(nullable: false),
                         AuthorId = c.String(),
-                        Body = c.String(),
+                        CommentBody = c.String(),
                         CreatedOn = c.DateTime(nullable: false),
-                        CommentParentId = c.Int(nullable: true),
+                        CommentParentId = c.Int(),
                         CommentSubjectId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);

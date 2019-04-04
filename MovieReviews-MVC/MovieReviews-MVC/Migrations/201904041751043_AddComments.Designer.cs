@@ -13,7 +13,7 @@ namespace MovieReviews_MVC.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201904041122053_AddComments"; }
+            get { return "201904041751043_AddComments"; }
         }
         
         string IMigrationMetadata.Source
