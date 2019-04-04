@@ -7,11 +7,15 @@
 <h2>Movies</h2>
  
 
-<div class="row flex-wrap">
-  @foreach (var movie in Model)
-  {
-    @Html.Partial("_MovieCard", movie)
-  }
-
+<div class="row flex-wrap justify-content-center partial-content" data-url="/Movie/MovieCards">
+  <div class="col-12">
+    <div class="lds-ellipsis">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
   </div>
+
+</div>
 

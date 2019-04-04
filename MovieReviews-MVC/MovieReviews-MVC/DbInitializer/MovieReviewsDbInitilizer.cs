@@ -14,7 +14,7 @@ using Newtonsoft.Json;
 
 namespace MovieReviews_MVC.DbInitializer
 {
-  public class MovieReviewsDbInitilizer : DropCreateDatabaseAlways<ApplicationDbContext>
+  public class MovieReviewsDbInitilizer : CreateDatabaseIfNotExists<ApplicationDbContext>
   {
 
     protected override void Seed(ApplicationDbContext context)

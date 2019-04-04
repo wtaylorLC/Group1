@@ -12,24 +12,32 @@ namespace MovieReviews_MVC.Controllers
 {
     public class MovieController : Controller
     {
-        // GET: Movie
-        public ActionResult Index()
+      private ApplicationDbContext _context;
+      public MovieController()
+      {
+        _context =new ApplicationDbContext();
+      }
+
+      public ActionResult Index()
+      {
+        return View();
+      }
+    // GET: Movie
+    public PartialViewResult MovieCards()
         {
-          var ctx = ApplicationDbContext.Create();
-          var model = ctx.Movies.Select(m => new MoviesViewModel()
+          var model = _context.Movies.Select(m => new MoviesViewModel()
           {
             Id = m.Id, Title = m.Title, Image = m.Image, Rating = m.Rating
           }).ToList();     
 
           
-            return View(model);
+            return PartialView("_MovieCards", model);
         }
 
         // GET: Movie/Details/5
         public ActionResult Details(int id)
         {
-          var ctx = ApplicationDbContext.Create();
-          var movie = ctx.Movies.Find(id);
+          var movie = _context.Movies.Find(id);
           var filmCrew = movie.FilmCrewMembers;
 
           

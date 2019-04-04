@@ -337,10 +337,12 @@
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\site.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="twitter img.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -387,7 +389,7 @@
     <Content Include="Views\Movie\Details.cshtml" />
     <Content Include="Views\Shared\_ReviewCard.cshtml" />
     <Content Include="Views\Shared\_CommentPartial.cshtml" />
-    <Content Include="Views\Movie\_MovieCard.cshtml" />
+    <Content Include="Views\Shared\_MovieCards.cshtml" />
     <Content Include="Views\FilmCrewMembers\Create.cshtml" />
     <Content Include="Views\FilmCrewMembers\Delete.cshtml" />
     <Content Include="Views\FilmCrewMembers\Details.cshtml" />

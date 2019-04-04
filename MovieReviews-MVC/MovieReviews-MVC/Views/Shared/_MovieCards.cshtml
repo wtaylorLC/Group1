@@ -1,0 +1,15 @@
+﻿@model IEnumerable<MovieReviews_MVC.Models.ViewModels.MoviesViewModel>
+
+  @foreach (var movie in Model)
+  {
+  <div class="col-4 p-4">
+    <a class="card" href="@Url.Action("Details", "Movie", new {id = movie.Id})">
+      <img class="card-img-top" src="@movie.Image" alt="Card image cap">
+      <div class="card-body  text-center">
+        <p><i class="fas fa-star" style="color: #FFEF44; -webkit-text-stroke: 1px black"></i> @movie.Rating / 10</p>
+        <h5 class="card-title text-capitalize">@movie.Title</h5>
+      </div>
+    </a>
+  </div>
+  }
+
