@@ -1,0 +1,38 @@
+﻿@model IEnumerable<MovieReviews_MVC.Models.ViewModels.ReviewCardViewModel>
+
+<div class="">
+  
+  @foreach (var review in Model)
+  {
+    <div class="card mb-3 position-relative review-card">
+      <div class="review__rating--wrapper">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star-half-alt"></i>
+        <i class="far fa-star"></i>
+        <i class="far fa-star"></i>
+        <i class="far fa-star"></i>
+
+      </div>
+      <div class="card-body">
+        <h4 class="card-title">@review.Title</h4>
+        <span>@review.AuthorUsername</span>
+        <span>@review.CreatedOn</span>
+        <p class="card-text">
+          @review.Body
+        </p>
+
+      </div>
+      <div class="review-link__wrapper">
+        <a class="review-link__link" href="@Url.Action("Details", "Review", new {id = review.Id})">Read full review...</a>
+
+      </div>
+    </div>
+
+  }
+  
+</div>

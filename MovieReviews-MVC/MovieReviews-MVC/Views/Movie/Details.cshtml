@@ -66,11 +66,8 @@
 
   </div>
   <div class="tab-pane fade" id="reviews">
-    <div class="mt-3">
-      @foreach (var num in new[] { 1, 2, 3, 4, 5, 6 })
-      {
-        @Html.Partial("_ReviewCard")
-      }
+    <div id="review-cards" data-url="/Review/Reviews/@Model.Movie.Id" class="mt-3">
+      
     </div>
   </div>
   <div class="tab-pane fade" id="news">
@@ -123,3 +120,15 @@
   </div>
 </div>
 @* Review modal end *@
+
+
+@section scripts{
+  <script type="text/javascript">
+    $(document).ready(() => {
+      const card = $("#review-cards");
+      const url = card.data("url");
+      card.load(url);
+    });
+  
+  </script>
+}
