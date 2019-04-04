@@ -1,12 +1,17 @@
-﻿@model MovieReviews_MVC.Models.ViewModels.FilmCrewMemberCardModel
+﻿@model IEnumerable<MovieReviews_MVC.Models.ViewModels.FilmCrewMemberCardModel>
 
 
-<a href="@Url.Action("Details","FilmCrewMembers", new { id = @Model.Id})" class="card border-light mb-3">
-  
-  <img style="height: 200px; width: 100%; display: block;" src="@Model.ImageUri" alt="Crew image">
-  <div class="card-body">
-    <h5 class="card-title text-center">@Model.Name</h5>
+@foreach (var card in Model)
+{
+<div class="col-3">
+  <a href="@Url.Action("Details","FilmCrewMembers", new { id = card.Id})" class="card border-light mb-3">
 
-  </div>
- 
-</a>
+    <img style="height: 200px; width: 100%; display: block;" src="@card.ImageUri" alt="Crew image">
+    <div class="card-body">
+      <h5 class="card-title text-center">@card.Name</h5>
+
+    </div>
+
+  </a>
+</div>
+}

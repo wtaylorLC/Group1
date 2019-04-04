@@ -4,15 +4,12 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Movies</h2>
+<h2 class="text-center">Movies</h2>
  
 
-<div class="row flex-wrap">
-  @foreach (var movie in Model)
-  {
-   // @Html.Partial("_MovieCard", movie)
+<div class="row flex-wrap partials-content"  data-url ="/Movie/MovieCards">
 
-  }
+  <div class="loader">Loading...</div>
 
-  </div>
+</div>
 

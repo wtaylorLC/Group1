@@ -12,27 +12,32 @@ namespace MovieReviews_MVC.Controllers
 {
     public class MovieController : Controller
     {
-      private ApplicationDbContext _context;
+      private ApplicationDbContext ctx;
       public MovieController()
       {
-        _context =new ApplicationDbContext();
+        ctx = new ApplicationDbContext();
       }
-
-      public ActionResult Index()
-      {
-        return View();
-      }
-    // GET: Movie
-    public PartialViewResult MovieCards()
+        // GET: Movie
+        public ActionResult Index()
         {
-          var model = _context.Movies.Select(m => new MoviesViewModel()
-          {
-            Id = m.Id, Title = m.Title, Image = m.Image, Rating = m.Rating
-          }).ToList();     
-
-          
-            return PartialView("_MovieCards", model);
+            return View();
         }
+
+      public PartialViewResult MovieCards()
+      {
+
+        var vm = ctx.Movies.Select(m => new MoviesViewModel()
+        {
+          Id = m.Id,
+          Title = m.Title,
+          Image = m.Image,
+          Rating = m.Rating
+        }).ToList();
+
+
+
+      return PartialView("_MovieCard", vm);
+      }
 
         // GET: Movie/Details/5
         public ActionResult Details(int id)
@@ -114,5 +119,14 @@ namespace MovieReviews_MVC.Controllers
                 return View();
             }
         }
-    }
+
+      protected override void Dispose(bool disposing)
+      {
+        if (disposing)
+        {
+          ctx.Dispose();
+        }
+        base.Dispose(disposing);
+      }
+  }
 }

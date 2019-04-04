@@ -49,5 +49,8 @@ namespace MovieReviews_MVC.Models
     public DbSet<Movie> Movies { get; set; }
     public DbSet<FilmCrewMember> FilmCrewMembers { get; set; }
     public DbSet<Review> Reviews { get; set; }
+    public DbSet<Comment> Comments { get; set; }
+
+
   }
 }
