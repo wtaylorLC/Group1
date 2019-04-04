@@ -13,12 +13,10 @@ namespace MovieReviews_MVC
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+          //enabling attribute routing
+          routes.MapMvcAttributeRoutes();
 
-          routes.MapRoute(
-            name: "Filmcrew",
-            url: "{controller}/{action}/{crewRole}",
-            defaults: new { controller = "FilmCrewMembers", action = "Index", crewRole= UrlParameter.Optional});
-            routes.MapRoute(
+      routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
