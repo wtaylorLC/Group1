@@ -208,6 +208,10 @@
     <Compile Include="Migrations\201904030832164_AddReviews.Designer.cs">
       <DependentUpon>201904030832164_AddReviews.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904041122053_AddComments.cs" />
+    <Compile Include="Migrations\201904041122053_AddComments.Designer.cs">
+      <DependentUpon>201904041122053_AddComments.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Configurations\ReviewEntityDbConfiguration.cs" />
@@ -325,6 +329,7 @@
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\Site.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
@@ -375,7 +380,7 @@
     <Content Include="Views\Movie\Details.cshtml" />
     <Content Include="Views\Movie\_ReviewCard.cshtml" />
     <Content Include="Views\Shared\_CommentPartial.cshtml" />
-    <Content Include="Views\Movie\_MovieCard.cshtml" />
+    <Content Include="Views\Shared\_MovieCard.cshtml" />
     <Content Include="Views\FilmCrewMembers\Create.cshtml" />
     <Content Include="Views\FilmCrewMembers\Delete.cshtml" />
     <Content Include="Views\FilmCrewMembers\Details.cshtml" />
@@ -414,6 +419,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904030832164_AddReviews.resx">
       <DependentUpon>201904030832164_AddReviews.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904041122053_AddComments.resx">
+      <DependentUpon>201904041122053_AddComments.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -164,6 +164,15 @@ namespace MovieReviews_MVC.DbInitializer
       context.Reviews.AddRange(reviews);
       #endregion
 
+      #region Comments
+      var comments = new Faker<Comment>()
+        .Rules((f, c) =>
+        {
+          c.AuthorId = f.PickRandom(users.Select(u => u.Id));
+          //c.Body =
+        });
+      #endregion
+
       context.Users.ForEach(u => u.EmailConfirmed =true);
 
       base.Seed(context);
