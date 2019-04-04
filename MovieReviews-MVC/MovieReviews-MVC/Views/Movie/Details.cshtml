@@ -1,4 +1,4 @@
-﻿@model MovieReviews_MVC.Models.ViewModels.CommentsViewModel
+﻿@model MovieReviews_MVC.Models.ViewModels.MovieDetailsViewModel
 
 @{
   ViewBag.Title = "Details";
@@ -59,10 +59,10 @@
 </ul>
 <div id="myTabContent" class="tab-content">
   <div class="tab-pane fade show active" id="comments">
-    @foreach (var comment in @Model.FakeComments)
-    {
-      @Html.Partial("_CommentPartial", comment)
-    }
+    <div class="row partials-content" data-url="/Comment/CommentCards/@Model.Movie.Id">
+      <div class="loader">Loading...</div>
+
+    </div>
 
   </div>
   <div class="tab-pane fade" id="reviews">
@@ -123,12 +123,12 @@
 
 
 @section scripts{
-  <script type="text/javascript">
+  @*<script type="text/javascript">
     $(document).ready(() => {
       const card = $("#review-cards");
       const url = card.data("url");
       card.load(url);
     });
   
-  </script>
+  </script>*@
 }

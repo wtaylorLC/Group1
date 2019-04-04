@@ -14,7 +14,7 @@ using Newtonsoft.Json;
 
 namespace MovieReviews_MVC.DbInitializer
 {
-  public class MovieReviewsDbInitilizer : CreateDatabaseIfNotExists<ApplicationDbContext>
+  public class MovieReviewsDbInitilizer : DropCreateDatabaseAlways<ApplicationDbContext>
   {
 
     protected override void Seed(ApplicationDbContext context)
@@ -153,7 +153,7 @@ namespace MovieReviews_MVC.DbInitializer
         .Rules((f, r) =>
         {
           r.AuthorId = f.PickRandom(users.Select(u => u.Id));
-          r.ReviewedMovieId = f.Random.ArrayElement(movieIds);
+          r.ReviewedMovieId = f.Random.Number(0, movieCount - 1);
           r.Title = f.Lorem.Sentence();
           r.Body = f.Lorem.Sentences();
           r.CreatedOn = f.Date.Past();
@@ -169,8 +169,19 @@ namespace MovieReviews_MVC.DbInitializer
         .Rules((f, c) =>
         {
           c.AuthorId = f.PickRandom(users.Select(u => u.Id));
-          //c.Body =
-        });
+          c.CommentBody = f.Lorem.Sentences();
+          c.CommentSubjectId = 3;
+          c.CommentType = CommentType.Movie;
+          c.CreatedOn = f.Date.Past();
+        })
+        .Generate(30);
+
+      var parentComments = comments.Take(8).ToArray();
+      var childrenComments = comments.Skip(8).ToArray();
+      childrenComments.ForEach(c => c.CommentParentId = random.Number(0, 7));
+
+      context.Comments.AddRange(parentComments.Concat(childrenComments));
+
       #endregion
 
       context.Users.ForEach(u => u.EmailConfirmed =true);

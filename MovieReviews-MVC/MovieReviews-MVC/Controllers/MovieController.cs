@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,7 +13,9 @@ namespace MovieReviews_MVC.Controllers
 {
     public class MovieController : Controller
     {
+
       private ApplicationDbContext ctx;
+
       public MovieController()
       {
         ctx = new ApplicationDbContext();
@@ -23,30 +26,30 @@ namespace MovieReviews_MVC.Controllers
             return View();
         }
 
-      public PartialViewResult MovieCards()
+    public PartialViewResult MovieCards()
+    {
+
+      var vm = ctx.Movies.Select(m => new MoviesViewModel()
       {
+        Id = m.Id,
+        Title = m.Title,
+        Image = m.Image,
+        Rating = m.Rating
+      }).ToList();
 
-        var vm = ctx.Movies.Select(m => new MoviesViewModel()
+
+
+      return PartialView("_MovieCards", vm);
+    }
+
+    // GET: Movie/Details/5
+    public ActionResult Details(int id)
         {
-          Id = m.Id,
-          Title = m.Title,
-          Image = m.Image,
-          Rating = m.Rating
-        }).ToList();
-
-
-
-      return PartialView("_MovieCard", vm);
-      }
-
-        // GET: Movie/Details/5
-        public ActionResult Details(int id)
-        {
-          var movie = _context.Movies.Find(id);
+          var movie = ctx.Movies.Include(m => m.FilmCrewMembers).FirstOrDefault(m => m.Id == id);
           var filmCrew = movie.FilmCrewMembers;
 
           
-          var model = new CommentsViewModel();
+          var model = new MovieDetailsViewModel();
           model.Movie = movie;
           model.Directors = filmCrew.Where(c => c.Role == MovieRole.Director).ToList();
           model.Actors = filmCrew.Where(c => c.Role == MovieRole.Actor).ToList();

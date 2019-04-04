@@ -188,6 +188,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\ReviewsController.cs" />
+    <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\FilmCrewMembersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -220,6 +221,10 @@
     <Compile Include="Migrations\201904030832164_AddReviews.Designer.cs">
       <DependentUpon>201904030832164_AddReviews.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904041751043_AddComments.cs" />
+    <Compile Include="Migrations\201904041751043_AddComments.Designer.cs">
+      <DependentUpon>201904041751043_AddComments.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Configurations\ReviewEntityDbConfiguration.cs" />
@@ -236,7 +241,9 @@
     <Compile Include="DbInitializer\MovieReviewsDbInitilizer.cs" />
     <Compile Include="Models\Configurations\MovieEntityDbConfiguration.cs" />
     <Compile Include="Models\ViewModels\CommentsViewModel.cs" />
+    <Compile Include="Models\Entities\CommentType.cs" />
     <Compile Include="Models\ViewModels\FilmCrewMemberCardModel.cs" />
+    <Compile Include="Models\ViewModels\MovieDetailsViewModel.cs" />
     <Compile Include="Models\ViewModels\MoviesViewModel.cs" />
     <Compile Include="Models\ViewModels\ReviewCardViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -341,7 +348,7 @@
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
-    <Content Include="Scripts\site.js" />
+    <Content Include="Scripts\Site.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
@@ -403,6 +410,7 @@
     <Content Include="Views\Review\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\Comment\" />
     <Folder Include="Views\Index\" />
   </ItemGroup>
   <ItemGroup>
@@ -436,6 +444,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904030832164_AddReviews.resx">
       <DependentUpon>201904030832164_AddReviews.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904041751043_AddComments.resx">
+      <DependentUpon>201904041751043_AddComments.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
