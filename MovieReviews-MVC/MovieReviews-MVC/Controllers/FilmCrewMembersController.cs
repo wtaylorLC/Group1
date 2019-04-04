@@ -17,8 +17,9 @@ namespace MovieReviews_MVC.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: FilmCrewMembers
-        public async Task<ActionResult> Index(string crewRole)
+    // GET: FilmCrewMembers
+    [Route("FilmCrewMember/Index/{crewRole:alpha}")]
+    public async Task<ActionResult> Index(string crewRole)
         {
           // if parse does not succeed, role will have default value,
           Enum.TryParse(crewRole, true, out MovieRole role);
