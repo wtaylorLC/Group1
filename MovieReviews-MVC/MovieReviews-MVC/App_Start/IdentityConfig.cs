@@ -53,11 +53,18 @@ namespace MovieReviews_MVC
             // Configure validation logic for passwords
             manager.PasswordValidator = new PasswordValidator
             {
-                RequiredLength = 6,
-                RequireNonLetterOrDigit = true,
-                RequireDigit = true,
-                RequireLowercase = true,
-                RequireUppercase = true,
+              // TODO Password rules changed - DEVELOP
+              //RequiredLength = 6,
+              //RequireNonLetterOrDigit = true,
+              //RequireDigit = true,
+              //RequireLowercase = true,
+              //RequireUppercase = true,
+              RequiredLength = 6,
+              RequireNonLetterOrDigit = false,
+              RequireDigit = true,
+              RequireLowercase = true,
+              RequireUppercase = false,
+
             };
 
             // Configure user lockout defaults

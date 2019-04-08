@@ -7,13 +7,13 @@ namespace MovieReviews_MVC.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class AddReviewsToMovie : IMigrationMetadata
+    public sealed partial class ReviewRatingChangedToFloat : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddReviewsToMovie));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ReviewRatingChangedToFloat));
         
         string IMigrationMetadata.Id
         {
-            get { return "201904010340148_AddReviewsToMovie"; }
+            get { return "201904072016098_ReviewRatingChangedToFloat"; }
         }
         
         string IMigrationMetadata.Source

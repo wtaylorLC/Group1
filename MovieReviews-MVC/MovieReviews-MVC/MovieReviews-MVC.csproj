@@ -36,6 +36,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -197,36 +198,37 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903281300139_Initial.cs" />
-    <Compile Include="Migrations\201903281300139_Initial.Designer.cs">
-      <DependentUpon>201903281300139_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201904071534272_Initial.cs" />
+    <Compile Include="Migrations\201904071534272_Initial.Designer.cs">
+      <DependentUpon>201904071534272_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903311930071_MovieRatingChangedToInt.cs" />
-    <Compile Include="Migrations\201903311930071_MovieRatingChangedToInt.Designer.cs">
-      <DependentUpon>201903311930071_MovieRatingChangedToInt.cs</DependentUpon>
+    <Compile Include="Migrations\201904071552375_AddRelationshipsToPostTypes.cs" />
+    <Compile Include="Migrations\201904071552375_AddRelationshipsToPostTypes.Designer.cs">
+      <DependentUpon>201904071552375_AddRelationshipsToPostTypes.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201904010340148_AddReviewsToMovie.cs" />
-    <Compile Include="Migrations\201904010340148_AddReviewsToMovie.Designer.cs">
-      <DependentUpon>201904010340148_AddReviewsToMovie.cs</DependentUpon>
+    <Compile Include="Migrations\201904071633330_UpdateReviewRatingToFloat.cs" />
+    <Compile Include="Migrations\201904071633330_UpdateReviewRatingToFloat.Designer.cs">
+      <DependentUpon>201904071633330_UpdateReviewRatingToFloat.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201904010400107_AddFilmCrewMembersToMovie.cs" />
-    <Compile Include="Migrations\201904010400107_AddFilmCrewMembersToMovie.Designer.cs">
-      <DependentUpon>201904010400107_AddFilmCrewMembersToMovie.cs</DependentUpon>
+    <Compile Include="Migrations\201904071711101_AddManyToManyFilmCrewAndMovies.cs" />
+    <Compile Include="Migrations\201904071711101_AddManyToManyFilmCrewAndMovies.Designer.cs">
+      <DependentUpon>201904071711101_AddManyToManyFilmCrewAndMovies.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201904020435512_AddFilmcrewMembers.cs" />
-    <Compile Include="Migrations\201904020435512_AddFilmcrewMembers.Designer.cs">
-      <DependentUpon>201904020435512_AddFilmcrewMembers.cs</DependentUpon>
+    <Compile Include="Migrations\201904072016098_ReviewRatingChangedToFloat.cs" />
+    <Compile Include="Migrations\201904072016098_ReviewRatingChangedToFloat.Designer.cs">
+      <DependentUpon>201904072016098_ReviewRatingChangedToFloat.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201904030832164_AddReviews.cs" />
-    <Compile Include="Migrations\201904030832164_AddReviews.Designer.cs">
-      <DependentUpon>201904030832164_AddReviews.cs</DependentUpon>
+    <Compile Include="Migrations\201904080624583_AddAvatarUriToApplicationUser.cs" />
+    <Compile Include="Migrations\201904080624583_AddAvatarUriToApplicationUser.Designer.cs">
+      <DependentUpon>201904080624583_AddAvatarUriToApplicationUser.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201904041751043_AddComments.cs" />
-    <Compile Include="Migrations\201904041751043_AddComments.Designer.cs">
-      <DependentUpon>201904041751043_AddComments.cs</DependentUpon>
+    <Compile Include="Migrations\201904081128458_AddReportedComments.cs" />
+    <Compile Include="Migrations\201904081128458_AddReportedComments.Designer.cs">
+      <DependentUpon>201904081128458_AddReportedComments.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Configurations\CommentEntityDbConffiguration.cs" />
     <Compile Include="Models\Configurations\ReviewEntityDbConfiguration.cs" />
     <Compile Include="Models\Entities\Article.cs" />
     <Compile Include="Models\Entities\Comment.cs" />
@@ -235,17 +237,21 @@
     <Compile Include="Models\Entities\Movie.cs" />
     <Compile Include="Models\Configurations\GenreEntityDbConfiguration.cs" />
     <Compile Include="Models\Entities\MovieRole.cs" />
+    <Compile Include="Models\Entities\Post.cs" />
+    <Compile Include="Models\Entities\ReportedComment.cs" />
     <Compile Include="Models\Entities\Review.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="DbInitializer\MovieReviewsDbInitilizer.cs" />
     <Compile Include="Models\Configurations\MovieEntityDbConfiguration.cs" />
+    <Compile Include="Models\ViewModels\CommentCardViewmodel.cs" />
     <Compile Include="Models\ViewModels\CommentsViewModel.cs" />
-    <Compile Include="Models\Entities\CommentType.cs" />
     <Compile Include="Models\ViewModels\FilmCrewMemberCardModel.cs" />
     <Compile Include="Models\ViewModels\MovieDetailsViewModel.cs" />
     <Compile Include="Models\ViewModels\MoviesViewModel.cs" />
+    <Compile Include="Models\ViewModels\ReportCommentViewModel.cs" />
     <Compile Include="Models\ViewModels\ReviewCardViewModel.cs" />
+    <Compile Include="Models\ViewModels\ReviewIndexViewmodel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -339,6 +345,8 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -408,6 +416,8 @@
     <Content Include="Views\FilmCrewMembers\Index.cshtml" />
     <Content Include="Views\FilmCrewMembers\_FilmCrewMemberCard.cshtml" />
     <Content Include="Views\Review\Details.cshtml" />
+    <Content Include="Views\Shared\_CommentCard.cshtml" />
+    <Content Include="Views\Shared\_ReportComment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Comment\" />
@@ -427,26 +437,26 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903281300139_Initial.resx">
-      <DependentUpon>201903281300139_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904071534272_Initial.resx">
+      <DependentUpon>201904071534272_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903311930071_MovieRatingChangedToInt.resx">
-      <DependentUpon>201903311930071_MovieRatingChangedToInt.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904071552375_AddRelationshipsToPostTypes.resx">
+      <DependentUpon>201904071552375_AddRelationshipsToPostTypes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904010340148_AddReviewsToMovie.resx">
-      <DependentUpon>201904010340148_AddReviewsToMovie.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904071633330_UpdateReviewRatingToFloat.resx">
+      <DependentUpon>201904071633330_UpdateReviewRatingToFloat.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904010400107_AddFilmCrewMembersToMovie.resx">
-      <DependentUpon>201904010400107_AddFilmCrewMembersToMovie.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904071711101_AddManyToManyFilmCrewAndMovies.resx">
+      <DependentUpon>201904071711101_AddManyToManyFilmCrewAndMovies.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904020435512_AddFilmcrewMembers.resx">
-      <DependentUpon>201904020435512_AddFilmcrewMembers.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904072016098_ReviewRatingChangedToFloat.resx">
+      <DependentUpon>201904072016098_ReviewRatingChangedToFloat.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904030832164_AddReviews.resx">
-      <DependentUpon>201904030832164_AddReviews.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904080624583_AddAvatarUriToApplicationUser.resx">
+      <DependentUpon>201904080624583_AddAvatarUriToApplicationUser.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904041751043_AddComments.resx">
-      <DependentUpon>201904041751043_AddComments.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904081128458_AddReportedComments.resx">
+      <DependentUpon>201904081128458_AddReportedComments.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

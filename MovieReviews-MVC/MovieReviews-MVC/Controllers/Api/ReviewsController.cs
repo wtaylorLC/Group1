@@ -28,7 +28,7 @@ namespace MovieReviews_MVC.Controllers.Api
     [Route("api/{movieId:int}/reviews")]
     public IEnumerable<Review> GetMovieReviews(int movieId)
     {
-      return _context.Reviews.Where(r => r.ReviewedMovieId == movieId);
+      return _context.Reviews.Where(r => r.MovieId == movieId);
     }
   }
 }

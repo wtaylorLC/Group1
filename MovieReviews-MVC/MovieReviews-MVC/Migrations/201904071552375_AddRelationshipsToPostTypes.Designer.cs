@@ -7,13 +7,13 @@ namespace MovieReviews_MVC.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class AddComments : IMigrationMetadata
+    public sealed partial class AddRelationshipsToPostTypes : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddComments));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddRelationshipsToPostTypes));
         
         string IMigrationMetadata.Id
         {
-            get { return "201904041751043_AddComments"; }
+            get { return "201904071552375_AddRelationshipsToPostTypes"; }
         }
         
         string IMigrationMetadata.Source

@@ -7,13 +7,13 @@ namespace MovieReviews_MVC.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class Initial : IMigrationMetadata
+    public sealed partial class AddAvatarUriToApplicationUser : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddAvatarUriToApplicationUser));
         
         string IMigrationMetadata.Id
         {
-            get { return "201903281300139_Initial"; }
+            get { return "201904080624583_AddAvatarUriToApplicationUser"; }
         }
         
         string IMigrationMetadata.Source

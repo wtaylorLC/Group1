@@ -7,13 +7,13 @@ namespace MovieReviews_MVC.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class AddFilmCrewMembersToMovie : IMigrationMetadata
+    public sealed partial class UpdateReviewRatingToFloat : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddFilmCrewMembersToMovie));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateReviewRatingToFloat));
         
         string IMigrationMetadata.Id
         {
-            get { return "201904010400107_AddFilmCrewMembersToMovie"; }
+            get { return "201904071633330_UpdateReviewRatingToFloat"; }
         }
         
         string IMigrationMetadata.Source

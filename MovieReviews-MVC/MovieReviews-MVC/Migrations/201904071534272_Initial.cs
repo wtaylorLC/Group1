@@ -8,25 +8,34 @@ namespace MovieReviews_MVC.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.Genres",
+                "dbo.Comment",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Title = c.String(),
+                        AuthorId = c.String(),
+                        CommentBody = c.String(),
+                        CreatedOn = c.DateTime(nullable: false),
+                        CommentParentId = c.Int(),
+                        Post_Id = c.Int(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Post", t => t.Post_Id)
+                .Index(t => t.Post_Id);
+            
+            CreateTable(
+                "dbo.Post",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
                     })
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.Movies",
+                "dbo.Genre",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Title = c.String(),
-                        Description = c.String(),
-                        Year = c.Int(nullable: false),
-                        Length = c.Int(nullable: false),
-                        Image = c.String(),
-                        Rating = c.Single(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -58,6 +67,7 @@ namespace MovieReviews_MVC.Migrations
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
+                        DisplayName = c.String(),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
@@ -106,21 +116,96 @@ namespace MovieReviews_MVC.Migrations
                         GenreId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => new { t.MovieId, t.GenreId })
-                .ForeignKey("dbo.Movies", t => t.MovieId, cascadeDelete: true)
-                .ForeignKey("dbo.Genres", t => t.GenreId, cascadeDelete: true)
+                .ForeignKey("dbo.Movie", t => t.MovieId, cascadeDelete: true)
+                .ForeignKey("dbo.Genre", t => t.GenreId, cascadeDelete: true)
                 .Index(t => t.MovieId)
                 .Index(t => t.GenreId);
+            
+            CreateTable(
+                "dbo.FilmCrewMember",
+                c => new
+                    {
+                        Id = c.Int(nullable: false),
+                        Name = c.String(),
+                        Bio = c.String(),
+                        DoB = c.DateTime(nullable: false),
+                        ImageUri = c.String(),
+                        Role = c.Byte(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Post", t => t.Id)
+                .Index(t => t.Id);
+            
+            CreateTable(
+                "dbo.Movie",
+                c => new
+                    {
+                        Id = c.Int(nullable: false),
+                        Title = c.String(),
+                        Description = c.String(),
+                        Year = c.Int(nullable: false),
+                        Length = c.Int(nullable: false),
+                        Image = c.String(),
+                        Rating = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Post", t => t.Id)
+                .Index(t => t.Id);
+            
+            CreateTable(
+                "dbo.Review",
+                c => new
+                    {
+                        Id = c.Int(nullable: false),
+                        Movie_Id = c.Int(),
+                        AuthorId = c.String(),
+                        ReviewedMovieId = c.Int(nullable: false),
+                        Title = c.String(),
+                        Body = c.String(),
+                        CreatedOn = c.DateTime(nullable: false),
+                        Rating = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Post", t => t.Id)
+                .ForeignKey("dbo.Movie", t => t.Movie_Id)
+                .Index(t => t.Id)
+                .Index(t => t.Movie_Id);
+            
+            CreateTable(
+                "dbo.Article",
+                c => new
+                    {
+                        Id = c.Int(nullable: false),
+                        AuthorId = c.Int(nullable: false),
+                        Body = c.String(),
+                        CreatedOn = c.DateTime(nullable: false),
+                        Title = c.String(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Post", t => t.Id)
+                .Index(t => t.Id);
             
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.Article", "Id", "dbo.Post");
+            DropForeignKey("dbo.Review", "Movie_Id", "dbo.Movie");
+            DropForeignKey("dbo.Review", "Id", "dbo.Post");
+            DropForeignKey("dbo.Movie", "Id", "dbo.Post");
+            DropForeignKey("dbo.FilmCrewMember", "Id", "dbo.Post");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.MovieGenre", "GenreId", "dbo.Genres");
-            DropForeignKey("dbo.MovieGenre", "MovieId", "dbo.Movies");
+            DropForeignKey("dbo.MovieGenre", "GenreId", "dbo.Genre");
+            DropForeignKey("dbo.MovieGenre", "MovieId", "dbo.Movie");
+            DropForeignKey("dbo.Comment", "Post_Id", "dbo.Post");
+            DropIndex("dbo.Article", new[] { "Id" });
+            DropIndex("dbo.Review", new[] { "Movie_Id" });
+            DropIndex("dbo.Review", new[] { "Id" });
+            DropIndex("dbo.Movie", new[] { "Id" });
+            DropIndex("dbo.FilmCrewMember", new[] { "Id" });
             DropIndex("dbo.MovieGenre", new[] { "GenreId" });
             DropIndex("dbo.MovieGenre", new[] { "MovieId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
@@ -129,14 +214,20 @@ namespace MovieReviews_MVC.Migrations
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.Comment", new[] { "Post_Id" });
+            DropTable("dbo.Article");
+            DropTable("dbo.Review");
+            DropTable("dbo.Movie");
+            DropTable("dbo.FilmCrewMember");
             DropTable("dbo.MovieGenre");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
-            DropTable("dbo.Movies");
-            DropTable("dbo.Genres");
+            DropTable("dbo.Genre");
+            DropTable("dbo.Post");
+            DropTable("dbo.Comment");
         }
     }
 }

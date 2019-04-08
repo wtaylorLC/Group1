@@ -7,13 +7,13 @@ namespace MovieReviews_MVC.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class AddReviews : IMigrationMetadata
+    public sealed partial class AddManyToManyFilmCrewAndMovies : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddReviews));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddManyToManyFilmCrewAndMovies));
         
         string IMigrationMetadata.Id
         {
-            get { return "201904030832164_AddReviews"; }
+            get { return "201904071711101_AddManyToManyFilmCrewAndMovies"; }
         }
         
         string IMigrationMetadata.Source

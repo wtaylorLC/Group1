@@ -37,11 +37,15 @@
 </nav>
 
 <div class="container body-content pt-5">
-    @RenderBody()
-    <hr/>
-    <footer>
-        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-    </footer>
+  @RenderBody()
+  <hr/>
+  <footer>
+    <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+  </footer>
+</div>
+
+<div class="alert fade fixed-bottom text-center w-75 mx-auto" role="alert">
+  
 </div>
 
 @Scripts.Render("~/bundles/jquery")
