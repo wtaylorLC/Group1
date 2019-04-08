@@ -45,16 +45,16 @@ namespace MovieReviews_MVC.Controllers
     // GET: Movie/Details/5
     public ActionResult Details(int id)
         {
-          var movie = ctx.Movies.Include(m => m.FilmCrewMembers).FirstOrDefault(m => m.Id == id);
-          var filmCrew = movie.FilmCrewMembers;
+      var movie = ctx.Movies.Include(m => m.FilmCrewMembers).FirstOrDefault(m => m.Id == id);
+      var filmCrew = movie.FilmCrewMembers;
 
-          
-          var model = new MovieDetailsViewModel();
-          model.Movie = movie;
-          model.Directors = filmCrew.Where(c => c.Role == MovieRole.Director).ToList();
-          model.Actors = filmCrew.Where(c => c.Role == MovieRole.Actor).ToList();
 
-          return View(model);
+      var model = new MovieDetailsViewModel();
+      model.Movie = movie;
+      model.Directors = filmCrew.Where(c => c.Role == MovieRole.Director).ToList();
+      model.Actors = filmCrew.Where(c => c.Role == MovieRole.Actor).ToList();
+
+      return View(model);
         }
 
         // GET: Movie/Create

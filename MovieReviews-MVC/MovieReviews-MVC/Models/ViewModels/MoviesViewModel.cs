@@ -7,6 +7,6 @@ namespace MovieReviews_MVC.Models.ViewModels
     public int Id { get; set; }
     public string Title  { get; set; }
     public string Image { get; set; }
-    public int Rating { get; set; }
+    public float Rating { get; set; }
   }
 }

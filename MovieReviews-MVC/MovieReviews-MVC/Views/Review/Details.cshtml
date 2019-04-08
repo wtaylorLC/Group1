@@ -1,51 +1,22 @@
-﻿@model MovieReviews_MVC.Models.Entities.Review
+﻿@model MovieReviews_MVC.Models.ViewModels.ReviewIndexViewmodel
 
-<div>
-    <h4>Review</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.AuthorId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AuthorId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Rating)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Rating)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Body)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Body)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedOn)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreatedOn)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-    </dl>
+<div class="text-center mt-5">
+  <h3>@Model.ReviewTitle</h3>
+  <p> By @Model.AuthorName on  @Model.CreatedOn</p>
+  <hr />
 </div>
+<div class="row">
+  <div class="col-4 d-flex justify-content-center align-items-center" style="background-image: linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.2)), url('@Model.MovieImageUri'); min-height: 300px; background-repeat: no-repeat; background-size: cover;">
+    <h4 class=""> <a class="text-secondary w-100 text-center" href="@Url.Action("Details", "Movie", new {id = Model.MovieId})">@Model.MovieTitle</a></h4>
+
+  </div>
+  <div class="col-8 p-5">
+    <p>@Model.ReviewBody</p>
+  </div>
+</div>
+
+<h4 class="mt-5">Comments</h4>
+<div class="row partials-content" data-url="/Comment/CommentCards/@Model.Id"></div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")

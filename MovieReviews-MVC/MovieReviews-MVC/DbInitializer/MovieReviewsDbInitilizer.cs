@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
 using System.Diagnostics;
@@ -14,34 +15,37 @@ using Newtonsoft.Json;
 
 namespace MovieReviews_MVC.DbInitializer
 {
-  public class MovieReviewsDbInitilizer : DropCreateDatabaseAlways<ApplicationDbContext>
+  public class MovieReviewsDbInitilizer : CreateDatabaseIfNotExists<ApplicationDbContext>
   {
 
     protected override void Seed(ApplicationDbContext context)
     {
-      // int userCount = 0;
+      base.Seed(context);
       int movieCount = 20;
       int crewCount = 40; //weight actors 0.8 directors 0.2
       int reviewCount = 20;
       int userCount = 30;
+
+
+
 
       #region UserRoles
 
       const string adminRoleName = "Admin";
       const string userRoleName = "UserNormal";
 
-        var roleStore = new RoleStore<IdentityRole>(context);
-        var roleManager = new RoleManager<IdentityRole>(roleStore);
+      var roleStore = new RoleStore<IdentityRole>(context);
+      var roleManager = new RoleManager<IdentityRole>(roleStore);
 
-        var adminRole = new IdentityRole { Name = adminRoleName };
-        var userRole = new IdentityRole { Name = userRoleName };
+      var adminRole = new IdentityRole {Name = adminRoleName};
+      var userRole = new IdentityRole {Name = userRoleName};
 
-        roleManager.Create(adminRole);
-        roleManager.Create(userRole);
+      roleManager.Create(adminRole);
+      roleManager.Create(userRole);
 
 
       #endregion
-      
+
       #region Users
 
       var store = new UserStore<ApplicationUser>(context);
@@ -58,7 +62,7 @@ namespace MovieReviews_MVC.DbInitializer
       };
 
 
-      var checkAdminUser = manager.Create(admin, "@Password123");
+      var checkAdminUser = manager.Create(admin, "pass123");
       if (checkAdminUser.Succeeded)
       {
         manager.AddToRole(admin.Id, adminRoleName);
@@ -68,7 +72,7 @@ namespace MovieReviews_MVC.DbInitializer
         var errors = checkAdminUser.Errors;
         errors.ForEach(e => Debug.WriteLine(e));
       }
-      
+
 
       #endregion
 
@@ -76,16 +80,18 @@ namespace MovieReviews_MVC.DbInitializer
         .Rules((f, u) =>
         {
           var userEmail = f.Internet.Email();
-            u.Id = Guid.NewGuid().ToString();
-            u.UserName = userEmail;
-            u.Email = userEmail;
-            u.EmailConfirmed = true;
-          })
+          u.Id = Guid.NewGuid().ToString();
+          u.AvatarUri = f.Internet.Avatar();
+          u.DisplayName = f.Name.FullName();
+          u.UserName = userEmail;
+          u.Email = userEmail;
+          u.EmailConfirmed = true;
+        })
         .Generate(userCount);
 
       users.ForEach(u =>
       {
-        var checkUser = manager.Create(u, "@Password123");
+        var checkUser = manager.Create(u, "pass123");
 
         if (checkUser.Succeeded)
         {
@@ -95,7 +101,7 @@ namespace MovieReviews_MVC.DbInitializer
         {
           checkUser.Errors.ForEach(e => Debug.WriteLine(e));
         }
-        
+
       });
 
 
@@ -103,22 +109,50 @@ namespace MovieReviews_MVC.DbInitializer
 
       #region Gernes
 
-      string[] genreNames = {"Action", "Action", "Adventure", "Comedy", "Crime", "Drama", "Fantasy", "Horror", "Romance", "Science fiction", "Thriller"};
-      context.Genres.AddRange(genreNames.Select(genre => new Genre(){Title = genre}));
+      string[] genreNames =
+      {
+        "Action", "Action", "Adventure", "Comedy", "Crime", "Drama", "Fantasy", "Horror", "Romance", "Science fiction",
+        "Thriller"
+      };
+      context.Genres.AddRange(genreNames.Select(genre => new Genre() {Title = genre}));
+
       #endregion
 
       #region Movies
 
-      var movies = new Faker<Movie>()
-        .RuleFor(m => m.Title, f => f.Hacker.Adjective()+" " + f.Hacker.Noun())
-        .RuleFor(m => m.Year, f => f.Random.Int(2000, 2018))
-        .RuleFor(m => m.Length, f => f.Random.Int(60, 180))
-        .RuleFor(m => m.Rating, f => f.Random.Int(0, 10))
-        .RuleFor(m => m.Image, f => f.Image.PicsumUrl(320, 320))
-        .RuleFor(m => m.Description, f => f.Lorem.Sentences())
-        .Generate(movieCount);
+      var random = new Bogus.Randomizer();
+      var reviewGenerator = new Faker<Review>()
+        .Rules((f, r) =>
+        {
+          r.AuthorId = f.PickRandom(users.Select(u => u.Id));
+          r.Title = f.Lorem.Sentence();
+          r.Body = f.Lorem.Sentences();
+          r.CreatedOn = f.Date.Past();
+          r.Rating = f.Random.Int(0, 10);
+        });
 
-      context.Movies.AddRange(movies);
+      var movies = new Faker<Movie>()
+        .Rules((f, m) =>
+        {
+          m.Title = f.Hacker.Adjective() + " " + f.Hacker.Noun();
+          m.Year = f.Random.Int(2000, 2018);
+          m.Length = f.Random.Int(60, 180);
+          m.Rating = f.Random.Float(0f, 10f);
+          m.Image = f.Image.PicsumUrl(320, 320);
+          m.Description = f.Lorem.Sentences();
+          m.Reviews = reviewGenerator.Generate(random.Int(3, 8));
+          m.Comments = Get20Comments();
+          m.Reviews.ForEach(r => r.Comments = Get20Comments());
+        })
+          .Generate(movieCount);
+
+      //movies = Enumerable.Range(0, movieCount).Zip(movies, (i, m) =>
+      //{
+      //  m.Reviews.ForEach(r => r.MovieId = i);
+      //  m.Id = i;
+      //  return m;
+      //}).ToList();
+
       #endregion
 
       #region FilmCrewMember
@@ -133,60 +167,40 @@ namespace MovieReviews_MVC.DbInitializer
           {
             0.8f, 0.2f
           });
-
+          c.Comments = Get20Comments();
         })
         .Generate(crewCount);
 
-      var random = new Bogus.Randomizer();
-      var moviesArr = movies.ToArray();
-      crew.ForEach(c => c.Movies = random.ArrayElements<Movie>(moviesArr, random.Number(3, 10)));
+     
+      var moviesArr = movies.ToList();
+      crew.ForEach(c => c.Movies = random.ListItems<Movie>(moviesArr, random.Number(3, 10)));
 
       context.FilmCrewMembers.AddRange(crew);
       #endregion
 
-      #region Reviews
+      List<Comment> Get20Comments()
+      {
+       
+        var comments = new Faker<Comment>()
+          .Rules((f, c) =>
+          {
+            c.AuthorId = f.PickRandom(users.Select(u => u.Id));
+            c.CommentBody = f.Lorem.Sentences();
+            c.CreatedOn = f.Date.Past();
+          })
+          .Generate(20);
+        var parentCommentsCount = random.Int(8, 13);
+        var parentComments = comments.Take(parentCommentsCount).ToArray();
+        var childrenComments = comments.Skip(parentCommentsCount).ToArray();
+        childrenComments.ForEach(c => c.CommentParentId = random.Number(0, 2));
 
-      // Movie Ids - auto incremented, ids will start at 0 to number of movies - 1
-      var movieIds = Enumerable.Range(0, movieCount - 1).ToArray();
 
-      var reviews = new Faker<Review>()
-        .Rules((f, r) =>
-        {
-          r.AuthorId = f.PickRandom(users.Select(u => u.Id));
-          r.ReviewedMovieId = f.Random.Number(0, movieCount - 1);
-          r.Title = f.Lorem.Sentence();
-          r.Body = f.Lorem.Sentences();
-          r.CreatedOn = f.Date.Past();
-          r.Rating = f.Random.Int(0, 10);
-        })
-        .Generate(reviewCount);
+        return parentComments.Concat(childrenComments).ToList();
 
-      context.Reviews.AddRange(reviews);
-      #endregion
+      }
 
-      #region Comments
-      var comments = new Faker<Comment>()
-        .Rules((f, c) =>
-        {
-          c.AuthorId = f.PickRandom(users.Select(u => u.Id));
-          c.CommentBody = f.Lorem.Sentences();
-          c.CommentSubjectId = 3;
-          c.CommentType = CommentType.Movie;
-          c.CreatedOn = f.Date.Past();
-        })
-        .Generate(30);
-
-      var parentComments = comments.Take(8).ToArray();
-      var childrenComments = comments.Skip(8).ToArray();
-      childrenComments.ForEach(c => c.CommentParentId = random.Number(0, 7));
-
-      context.Comments.AddRange(parentComments.Concat(childrenComments));
-
-      #endregion
-
-      context.Users.ForEach(u => u.EmailConfirmed =true);
-
-      base.Seed(context);
+      context.Users.ForEach(u => u.EmailConfirmed = true);
+      context.SaveChanges();
     }
   }
 }

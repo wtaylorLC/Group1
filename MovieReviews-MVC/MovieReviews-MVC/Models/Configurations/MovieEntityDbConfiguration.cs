@@ -7,6 +7,7 @@ namespace MovieReviews_MVC.Models.Configurations
   {
     public MovieEntityDbConfiguration()
     {
+      ToTable("Movie");
       HasMany<Genre>(m => m.Genres)
         .WithMany(g => g.Movies)
         .Map(cs =>

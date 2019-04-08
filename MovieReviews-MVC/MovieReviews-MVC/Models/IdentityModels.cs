@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -13,6 +14,9 @@ namespace MovieReviews_MVC.Models
   public class ApplicationUser : IdentityUser
   {
 
+    public string DisplayName { get; set; }
+    public string AvatarUri { get; set; }
+    public virtual IEnumerable<ReportedComment> ReportedComments {get; set; }
 
     public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
     {
@@ -38,18 +42,24 @@ namespace MovieReviews_MVC.Models
     protected override void OnModelCreating(DbModelBuilder modelBuilder)
     {
       modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-      
+
+      modelBuilder.Entity<Movie>().ToTable("Movie");
+      modelBuilder.Entity<Article>().ToTable("Article");
+      modelBuilder.Entity<FilmCrewMember>().ToTable("FilmCrewMember");
+      modelBuilder.Entity<Review>().ToTable("Review");
       modelBuilder.Configurations.Add(new GenreEntityDbConfiguration());
       modelBuilder.Configurations.Add(new MovieEntityDbConfiguration());
 
       base.OnModelCreating(modelBuilder);
     }
 
+    public DbSet<Post> Posts { get; set; }
     public DbSet<Genre> Genres { get; set; }
     public DbSet<Movie> Movies { get; set; }
     public DbSet<FilmCrewMember> FilmCrewMembers { get; set; }
     public DbSet<Review> Reviews { get; set; }
     public DbSet<Comment> Comments { get; set; }
+    public DbSet<ReportedComment> ReportedComments { get; set; }
 
 
   }

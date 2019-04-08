@@ -25,20 +25,32 @@ namespace MovieReviews_MVC.Controllers
             return View();
         }
 
-        public JsonResult MovieReviews(int id)
-        {
-            var reviews = ctx.Reviews.Where(r => r.ReviewedMovieId == id);
-            return Json(reviews);
-        }
         // GET: Review/Details/5
         public ActionResult Details(int id)
         {
-            return View(ctx.Reviews.FirstOrDefault(r => r.Id == id));
+          var review = ctx.Reviews.FirstOrDefault(r => r.Id == id);
+          var movie = ctx.Movies.FirstOrDefault(m => review.MovieId == m.Id);
+          var author = ctx.Users.FirstOrDefault(u => review.AuthorId == u.Id);
+
+          var vm = new ReviewIndexViewmodel
+          {
+            Id = review.Id,
+            AuthorName =  author.DisplayName,
+            CreatedOn = review.CreatedOn,
+            MovieId = movie.Id,
+            MovieTitle = movie.Title,
+            Rating = review.Rating,
+            ReviewBody = review.Body,
+            ReviewTitle = review.Title,
+            MovieImageUri = movie.Image
+
+          };
+            return View(vm);
         }
     //[Route("/Review/Reviews/{id:int}")]
     public PartialViewResult Reviews(int id)
       {
-        var reviews = ctx.Reviews.Where(r => r.ReviewedMovieId == id).ToArray();
+        var reviews = ctx.Reviews.Where(r => r.MovieId == id).ToArray();
 
         var vm = reviews.Select(r =>
         {
@@ -48,7 +60,7 @@ namespace MovieReviews_MVC.Controllers
             Title = r.Title,
             Body = r.Body,
             CreatedOn = r.CreatedOn.ToString("d"),
-            AuthorUsername = ctx.Users.FirstOrDefault(u => u.Id == r.AuthorId).UserName
+            AuthorUsername = ctx.Users.FirstOrDefault(u => u.Id == r.AuthorId).DisplayName
           };
           return card;
         });

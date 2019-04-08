@@ -1,0 +1,24 @@
+﻿@model MovieReviews_MVC.Models.ViewModels.CommentCardViewmodel
+
+
+  <div class="row w-100 mt-4" >
+    <div class="col-1">
+      <img class="img-thumbnail" src="@Model.AvatarUri" style="object-fit: cover; min-width:60px; height: 60px"  alt="Alternate Text" />
+    </div>
+    <div class="col-11">
+      <h5 class="card-title font-weight-bold text-black-50 d-inline-block">@Model.AuthorDisplayName</h5>
+      <p class="card-text">
+        @Model.CommentBody
+      </p>
+      <div class="mt-1">
+        <span>On @Model.CreatedOn</span>
+        <span class="d-inline-block mx-4">&bull;</span>
+        <a href="#">Reply</a>
+        <span class="d-inline-block mx-4">&bull;</span>
+        <input type="button" value="Report" class="btn btn-link text-capitalize" data-url="/Comment/GetReportModal/@Model.Id" onclick="getCommentReportModal(event)" />
+</div>
+    </div>
+  </div>
+ 
+
+
