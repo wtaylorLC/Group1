@@ -14,25 +14,28 @@ $(document).ready((e) => {
         () => {
           $(".card").hide().delay(100).fadeIn("600");
         });
-    }
+      }
   });
 });
 
-
+function getCommentModal(e) {
+  var url = $(e.target).data("url");
+  
+  $(".add-comment").load(url, function () {
+    $('#add-comment-modal').modal('show');
+  });
+}
 
 
 function getCommentReportModal(e) {
   var url = $(e.target).data("url");
-  console.log(e);
+
   $(".report-comment").load(url, function () {
     $('#comment-report-modal').modal('show');
   });
 }
 
-
 function alertCommentReportSuccess(data, status, xhr) {
- 
-  
 
   const header = JSON.parse(xhr.getResponseHeader("X-Responded-JSON"));
   if (header != null && header["status"] === 401) return alertCommentReportFailure();
@@ -45,7 +48,21 @@ function alertCommentReportSuccess(data, status, xhr) {
       alert.removeClass("show alert-success");
     },
     2500);
+}
 
+function alertCommentReportSuccess(data, status, xhr) {
+
+  const header = JSON.parse(xhr.getResponseHeader("X-Responded-JSON"));
+  if (header != null && header["status"] === 401) return alertCommentReportFailure();
+  $("#comment-report-modal").modal('hide');
+  const alert = $(".alert");
+  alert.html("Report submitted");
+  alert.addClass("show alert-success");
+
+  setTimeout(() => {
+      alert.removeClass("show alert-success");
+    },
+    2500);
 }
 
 function alertCommentReportFailure() {
@@ -58,5 +75,11 @@ function alertCommentReportFailure() {
       alert.removeClass("show alert-danger");
     },
     2500);
+}
 
+
+function addCommentSuccess(data, status, xhr) {
+  var comments = $(".comments-block");
+  var url = site.baseUrl + comments.data("url");
+  comments.load(url);
 }
