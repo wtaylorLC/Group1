@@ -30,7 +30,12 @@ function getCommentReportModal(e) {
 }
 
 
-function alertCommentReportSuccess() {
+function alertCommentReportSuccess(data, status, xhr) {
+ 
+  
+
+  const header = JSON.parse(xhr.getResponseHeader("X-Responded-JSON"));
+  if (header != null && header["status"] === 401) return alertCommentReportFailure();
   $("#comment-report-modal").modal('hide');
   const alert = $(".alert");
   alert.html("Report submitted");

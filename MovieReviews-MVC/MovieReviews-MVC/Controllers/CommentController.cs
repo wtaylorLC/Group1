@@ -49,18 +49,58 @@ namespace MovieReviews_MVC.Controllers
         return PartialView("_CommentPartial", vm);
       }
 
-       [HttpGet] 
-      public ActionResult GetReportModal(int id)
+       [HttpGet]
+      [Route("Comment/Add/{postId:int}/{commentId:int}")]
+      public ActionResult GetReportModal(int postId, int? commentId)
+      {
+      //var comment = ctx.Comments.FirstOrDefault(c => c.Id == id);
+
+
+      //return PartialView("_ReportComment", new ReportCommentViewModel(){Id = comment.Id});
+      return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, $"postID {postId} commnetId { commentId ?? 333}");
+    }
+
+      [HttpGet]
+
+      public ActionResult CommentModal(int id)
       {
         var comment = ctx.Comments.FirstOrDefault(c => c.Id == id);
 
-        
-        return PartialView("_ReportComment", new ReportCommentViewModel(){Id = comment.Id});
+
+        return PartialView("_CommentModal");
       }
+
+      [HttpPost]
+      [ValidateAntiForgeryToken]
+      [Authorize]
+      public ActionResult AddComment(CommentModalViewModel model)
+      {
+        var comment = new Comment{
+          AuthorId = User.Identity.GetUserId(),
+          CommentBody = model.CommentBody,
+          CreatedOn = DateTime.Now,
+          PostId = model.PostId,
+          CommentParentId = model.CommentParentId,
+        };
+        try
+        {
+          ctx.Comments.Add(comment);
+          ctx.SaveChanges();
+        }
+        catch (Exception e)
+        {
+          return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+        }
+
+
+
+        return new HttpStatusCodeResult(HttpStatusCode.OK);
+      }
+  
 
        [HttpPost]
        [ValidateAntiForgeryToken]
-       [Authorize(Roles = "UserNormal")]
+       [Authorize]
       public ActionResult Report(ReportCommentViewModel model)
        {
         var reportedComment = new ReportedComment()
@@ -69,7 +109,7 @@ namespace MovieReviews_MVC.Controllers
           UserId = User.Identity.GetUserId(),
           Reason = model.Reason,
         };
-
+      
          try
          {
           ctx.ReportedComments.Add(reportedComment);

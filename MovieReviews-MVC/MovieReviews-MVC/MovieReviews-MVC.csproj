@@ -190,6 +190,11 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\ReviewsController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
+    <Compile Include="Migrations\201904091121420_AddPostIdComment.cs" />
+    <Compile Include="Migrations\201904091121420_AddPostIdComment.Designer.cs">
+      <DependentUpon>201904091121420_AddPostIdComment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ViewModels\CommentModalViewModel.cs" />
     <Compile Include="Controllers\FilmCrewMembersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -256,10 +261,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\aspnet-MovieReviews-MVC-20190321093648.mdf" />
-    <Content Include="App_Data\aspnet-MovieReviews-MVC-20190321093648_log.ldf">
-      <DependentUpon>aspnet-MovieReviews-MVC-20190321093648.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -418,8 +419,11 @@
     <Content Include="Views\Review\Details.cshtml" />
     <Content Include="Views\Shared\_CommentCard.cshtml" />
     <Content Include="Views\Shared\_ReportComment.cshtml" />
+    <Content Include="Views\Shared\_CommentModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Filters\" />
     <Folder Include="Views\Comment\" />
     <Folder Include="Views\Index\" />
   </ItemGroup>
@@ -457,6 +461,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904081128458_AddReportedComments.resx">
       <DependentUpon>201904081128458_AddReportedComments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904091121420_AddPostIdComment.resx">
+      <DependentUpon>201904091121420_AddPostIdComment.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
