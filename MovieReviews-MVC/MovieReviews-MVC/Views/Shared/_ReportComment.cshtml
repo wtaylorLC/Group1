@@ -12,15 +12,16 @@
         @using (Ajax.BeginForm("Report", "Comment", new AjaxOptions { HttpMethod = "POST" ,  OnSuccess = "alertCommentReportSuccess(data, status, xhr)", OnFailure = "alertCommentReportFailure" }))
         {
           @Html.AntiForgeryToken()
+          <div class="form-group">
           @Html.LabelForModel(Model.Reason)
-          @Html.TextAreaFor(Model => Model.Reason)
-
+          @Html.TextAreaFor(Model => Model.Reason, 5, 50, new { @class = "form-control", placeholder = "Write a reason..." })
+          </div>
           @Html.HiddenFor(Model => Model.Id)
 
 
           <div class="modal-footer">
-            <input type="submit" value="Submit Report" class="btn btn-primary" />
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <input type="submit" value="Submit" class="btn btn-outline-primary" />
+            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
           </div>
         }
 
