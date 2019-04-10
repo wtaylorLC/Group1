@@ -9,7 +9,7 @@
         </button>
       </div>
       <div class="modal-body">
-        @using (Ajax.BeginForm("Report", "Comment", new AjaxOptions { HttpMethod = "POST" , OnSuccess = "alertCommentReportSuccess", OnFailure = "alertCommentReportFailure" }))
+        @using (Ajax.BeginForm("Report", "Comment", new AjaxOptions { HttpMethod = "POST" ,  OnSuccess = "alertCommentReportSuccess(data, status, xhr)", OnFailure = "alertCommentReportFailure" }))
         {
           @Html.AntiForgeryToken()
           @Html.LabelForModel(Model.Reason)
