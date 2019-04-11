@@ -14,49 +14,54 @@ namespace MovieReviews_MVC.Controllers
     public class MovieController : Controller
     {
 
-      private ApplicationDbContext ctx;
+        private ApplicationDbContext ctx;
 
-      public MovieController()
-      {
-        ctx = new ApplicationDbContext();
-      }
+        public MovieController()
+        {
+            ctx = new ApplicationDbContext();
+        }
         // GET: Movie
         public ActionResult Index()
         {
             return View();
         }
 
-    public PartialViewResult MovieCards()
-    {
-
-      var vm = ctx.Movies.Select(m => new MoviesViewModel()
-      {
-        Id = m.Id,
-        Title = m.Title,
-        Image = m.Image,
-        Rating = m.Rating
-      }).ToList();
-
-
-
-      return PartialView("_MovieCards", vm);
-    }
-
-    // GET: Movie/Details/5
-    public ActionResult Details(int id)
+        public PartialViewResult MovieCards()
         {
-      var movie = ctx.Movies.Include(m => m.FilmCrewMembers).FirstOrDefault(m => m.Id == id);
-      var filmCrew = movie.FilmCrewMembers;
+
+            var vm = ctx.Movies.Select(m => new MoviesViewModel()
+            {
+                Id = m.Id,
+                Title = m.Title,
+                Image = m.Image,
+                Rating = m.Rating
+            }).ToList();
 
 
-      var model = new MovieDetailsViewModel();
-      model.Movie = movie;
-      model.Directors = filmCrew.Where(c => c.Role == MovieRole.Director).ToList();
-      model.Actors = filmCrew.Where(c => c.Role == MovieRole.Actor).ToList();
 
-      return View(model);
+            return PartialView("_MovieCards", vm);
         }
 
+        // GET: Movie/Details/5
+        public ActionResult Details(int id)
+        {
+            var post = ctx.Posts.Find(id);
+            var movie = ctx.Movies.Include(m => m.FilmCrewMembers).FirstOrDefault(m => m.Id == id);
+            var filmCrew = movie.FilmCrewMembers;
+
+
+            var model = new MovieDetailsViewModel
+            {
+                PostId = post.Id,
+                Movie = movie,
+                Directors = filmCrew.Where(c => c.Role == MovieRole.Director).ToList(),
+                Actors = filmCrew.Where(c => c.Role == MovieRole.Actor).ToList()
+            };
+
+            return View(model);
+        }
+
+        #region Not In Use
         // GET: Movie/Create
         public ActionResult Create()
         {
@@ -122,14 +127,15 @@ namespace MovieReviews_MVC.Controllers
                 return View();
             }
         }
+        #endregion
 
-      protected override void Dispose(bool disposing)
-      {
-        if (disposing)
+        protected override void Dispose(bool disposing)
         {
-          ctx.Dispose();
+            if (disposing)
+            {
+                ctx.Dispose();
+            }
+            base.Dispose(disposing);
         }
-        base.Dispose(disposing);
-      }
-  }
+    }
 }

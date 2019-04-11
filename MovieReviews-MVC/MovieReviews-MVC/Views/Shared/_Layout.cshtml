@@ -1,55 +1,58 @@
-﻿<!DOCTYPE html>
+﻿
+
+<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@ViewBag.Title - My ASP.NET Application</title>
+  @Styles.Render("~/Content/css")
+  @Scripts.Render("~/bundles/modernizr")
 
 </head>
 <body>
-<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
     @*<div class="container">*@
-        <a class="navbar-brand" href="@Url.Action("Index", "Home")">MovieReviews</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <a class="navbar-brand" href="@Url.Action("Index", "Home")">MovieReviews</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">@Html.ActionLink("Movies", "Index", "Movie", "", new { @class = "nav-link" })</li>
-            <li class="nav-item">@Html.ActionLink("Actors", "Index", "FilmCrewMembers", new {crewRole = "Actor"}, new { @class = "nav-link" })</li>
-            <li class="nav-item">@Html.ActionLink("Directors", "Index", "FilmCrewMembers", new { crewRole = "Director" }, new { @class = "nav-link" })</li>
-            <li class="nav-item">@Html.ActionLink("Reviews", "Index", "Home", "", new { @class = "nav-link" })</li>
-            <li class="nav-item">@Html.ActionLink("News", "Index", "Home", "", new { @class = "nav-link" })</li>
-            <li class="nav-item">@Html.ActionLink("About", "About", "Home", "", new { @class = "nav-link" })</li>
-          </ul>
-          
-      
-          @*<form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search">
-            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-          </form>*@
-            @Html.Partial("_LoginPartial")
-        </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">@Html.ActionLink("Movies", "Index", "Movie", "", new { @class = "nav-link" })</li>
+        <li class="nav-item">@Html.ActionLink("Actors", "Index", "FilmCrewMembers", new { crewRole = "Actor" }, new { @class = "nav-link" })</li>
+        <li class="nav-item">@Html.ActionLink("Directors", "Index", "FilmCrewMembers", new { crewRole = "Director" }, new { @class = "nav-link" })</li>
+        <li class="nav-item">@Html.ActionLink("Reviews", "Index", "Home", "", new { @class = "nav-link" })</li>
+        <li class="nav-item">@Html.ActionLink("News", "Index", "Home", "", new { @class = "nav-link" })</li>
+       @* <li class="nav-item">@Html.ActionLink("About", "About", "Home", "", new { @class = "nav-link" })</li>*@
+      </ul>
+
+
+      @*<form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search">
+          <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+        </form>*@
+      @Html.Partial("_AdminMenu")
+      @Html.Partial("_LoginPartial")
+    </div>
     @*</div>*@
-</nav>
+  </nav>
 
-<div class="container body-content pt-5">
-  @RenderBody()
-  <hr/>
-  <footer>
-    <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-  </footer>
-</div>
+  <div class="container body-content pt-5">
+    @RenderBody()
+    <hr />
+    <footer>
+      <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+    </footer>
+  </div>
 
-<div class="alert fade fixed-bottom text-center w-75 mx-auto" role="alert">
-  
-</div>
+  <div class="alert fade fixed-bottom text-center w-75 mx-auto" role="alert">
 
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/bootstrap")
-@RenderSection("scripts", required: false)
+  </div>
+
+  @Scripts.Render("~/bundles/jquery")
+  @Scripts.Render("~/bundles/bootstrap")
+  @RenderSection("scripts", required: false)
 </body>
 </html>

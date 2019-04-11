@@ -79,6 +79,7 @@ function alertCommentReportFailure() {
 
 
 function addCommentSuccess(data, status, xhr) {
+  $("#add-comment-modal").modal('hide');
   var comments = $(".comments-block");
   var url = site.baseUrl + comments.data("url");
   comments.load(url);

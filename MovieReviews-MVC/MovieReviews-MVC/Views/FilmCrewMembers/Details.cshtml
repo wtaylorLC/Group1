@@ -1,8 +1,8 @@
 ﻿@using MovieReviews_MVC.Models.Entities
-@model MovieReviews_MVC.Models.Entities.FilmCrewMember
+@model MovieReviews_MVC.Models.ViewModels.FillmCrewMemberViewModel
 
 @{
-    ViewBag.Title = "Details";
+  ViewBag.Title = "Details";
 }
 
 
@@ -52,9 +52,21 @@
       </a>
     }
   </div>
- 
+
 </div>
-<p class="mt-5">
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<h4 class="mt-5">Comments</h4>
+<div class="row partials-content comments-block" data-url="/Comment/CommentCards/@Model.Id"></div>
+<p>
+
+  @* Report Comment Modal *@
+  <div class="report-comment">
+
+  </div>
+  @* Report Comment Modal End *@
+
+  @* Add Comment Modal *@
+  <div class="add-comment">
+
+  </div>
+
+  @* Add Comment Modal End *@
