@@ -251,6 +251,7 @@
     <Compile Include="Models\Configurations\MovieEntityDbConfiguration.cs" />
     <Compile Include="Models\ViewModels\CommentCardViewmodel.cs" />
     <Compile Include="Models\ViewModels\CommentsViewModel.cs" />
+    <Compile Include="Models\ViewModels\FillmCrewMemberViewModel.cs" />
     <Compile Include="Models\ViewModels\FilmCrewMemberCardModel.cs" />
     <Compile Include="Models\ViewModels\MovieDetailsViewModel.cs" />
     <Compile Include="Models\ViewModels\MoviesViewModel.cs" />
@@ -420,6 +421,7 @@
     <Content Include="Views\Shared\_CommentCard.cshtml" />
     <Content Include="Views\Shared\_ReportComment.cshtml" />
     <Content Include="Views\Shared\_CommentModal.cshtml" />
+    <Content Include="Views\Shared\_AdminMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

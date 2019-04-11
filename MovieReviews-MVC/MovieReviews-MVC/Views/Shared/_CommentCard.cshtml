@@ -12,10 +12,14 @@
       </p>
       <div class="mt-1">
         <span>On @Model.CreatedOn</span>
-        <span class="d-inline-block mx-4">&bull;</span>
+
+        @if (Request.IsAuthenticated) {
+
+          <span class="d-inline-block mx-4">&bull;</span>
         <input type="button" value="Reply" class="btn btn-link text-capitalize" data-url="/Comment/Add/@Model.PostId/@Model.Id" onclick="getCommentModal(event)" />
         <span class="d-inline-block mx-4">&bull;</span>
-        <input type="button" value="Report" class="btn btn-link text-capitalize" data-url="/Comment/GetReportModal/@Model.Id" onclick="getCommentReportModal(event)" />
+          <input type="button" value="Report" class="btn btn-link text-capitalize" data-url="/Comment/GetReportModal/@Model.Id" onclick="getCommentReportModal(event)" />
+        }
       </div>
     </div>
   </div>

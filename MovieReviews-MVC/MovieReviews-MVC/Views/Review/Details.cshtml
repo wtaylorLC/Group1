@@ -16,8 +16,18 @@
 </div>
 
 <h4 class="mt-5">Comments</h4>
-<div class="row partials-content" data-url="/Comment/CommentCards/@Model.Id"></div>
+<div class="row partials-content comments-block" data-url="/Comment/CommentCards/@Model.Id"></div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+@* Report Comment Modal *@
+<div class="report-comment">
+
+</div>
+@* Report Comment Modal End *@
+
+@* Add Comment Modal *@
+<div class="add-comment">
+
+</div>
+
+@* Add Comment Modal End *@
