@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<MovieReviews_MVC.Models.ViewModels.ReviewCardViewModel>
 
 <div class="">
-  
+
   @foreach (var review in Model)
   {
     <div class="card mb-3 position-relative review-card">
@@ -21,7 +21,7 @@
       <div class="card-body">
         <h4 class="card-title">@review.Title</h4>
         <span>@review.AuthorUsername</span>
-        <span>@review.CreatedOn</span>
+        <span>on @review.CreatedOn</span>
         <p class="card-text">
           @review.Body
         </p>
@@ -34,5 +34,5 @@
     </div>
 
   }
-  
+
 </div>

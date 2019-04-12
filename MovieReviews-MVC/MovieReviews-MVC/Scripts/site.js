@@ -84,3 +84,8 @@ function addCommentSuccess(data, status, xhr) {
   var url = site.baseUrl + comments.data("url");
   comments.load(url);
 }
+
+// Reviews on click navigate to review details page
+$('tr[data-href]').on("click", function () {
+  document.location = $(this).data('href');
+});

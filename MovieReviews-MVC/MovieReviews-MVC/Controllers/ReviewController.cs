@@ -1,4 +1,5 @@
 ﻿using MovieReviews_MVC.Models;
+using System.Data.Entity;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -20,9 +21,20 @@ namespace MovieReviews_MVC.Controllers
         // GET: Review
         public ActionResult Index()
         {
-          var reviews = ctx.Reviews;
-
-            return View();
+            var reviews = ctx.Reviews.Include(r => r.Movie).ToList();
+            var authorIdsForReviews = reviews.Select(r => r.AuthorId).Distinct().ToList();
+            var authorInfo = ctx.Users.Where(u => authorIdsForReviews.Contains(u.Id))
+                .ToDictionary(u => u.Id, u => u.DisplayName);
+            var vm = reviews.Select(r => new ReviewCardWithMovieViewModel()
+            {
+                Id = r.Id,
+                AuthorDisplayName = authorInfo[r.AuthorId],
+                Title = r.Title,
+                ReviewRating = r.Rating,
+                CreatedOn = r.CreatedOn.ToString("dd MMMM yyyy"),
+                MovieTitle = r.Movie.Title,
+            }).ToList();
+            return View(vm);
         }
 
         // GET: Review/Details/5

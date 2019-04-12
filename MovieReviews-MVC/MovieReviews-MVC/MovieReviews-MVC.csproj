@@ -194,6 +194,10 @@
     <Compile Include="Migrations\201904091121420_AddPostIdComment.Designer.cs">
       <DependentUpon>201904091121420_AddPostIdComment.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904111410122_AddMovieToReview.cs" />
+    <Compile Include="Migrations\201904111410122_AddMovieToReview.Designer.cs">
+      <DependentUpon>201904111410122_AddMovieToReview.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\ViewModels\CommentModalViewModel.cs" />
     <Compile Include="Controllers\FilmCrewMembersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -257,6 +261,7 @@
     <Compile Include="Models\ViewModels\MoviesViewModel.cs" />
     <Compile Include="Models\ViewModels\ReportCommentViewModel.cs" />
     <Compile Include="Models\ViewModels\ReviewCardViewModel.cs" />
+    <Compile Include="Models\ViewModels\ReviewCardWithMovieViewModel.cs" />
     <Compile Include="Models\ViewModels\ReviewIndexViewmodel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -422,6 +427,7 @@
     <Content Include="Views\Shared\_ReportComment.cshtml" />
     <Content Include="Views\Shared\_CommentModal.cshtml" />
     <Content Include="Views\Shared\_AdminMenu.cshtml" />
+    <Content Include="Views\Review\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -466,6 +472,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904091121420_AddPostIdComment.resx">
       <DependentUpon>201904091121420_AddPostIdComment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904111410122_AddMovieToReview.resx">
+      <DependentUpon>201904111410122_AddMovieToReview.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

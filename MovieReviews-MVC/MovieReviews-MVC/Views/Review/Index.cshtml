@@ -1,0 +1,29 @@
+﻿@model ICollection<MovieReviews_MVC.Models.ViewModels.ReviewCardWithMovieViewModel>
+
+@{
+  ViewBag.Title = "Reviews";
+}
+
+<h2>Reviews</h2>
+
+<table class="table-striped table-responsive table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Rating</th>
+      <th scope="col">Movie</th>
+      <th scope="col">Review</th>
+      <th scope="col">Author</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var reviewCard in Model)
+    {
+      <tr data-href="/review/details/@reviewCard.Id">
+        <td>@reviewCard.ReviewRating</td>
+        <td>@reviewCard.MovieTitle</td>
+        <td>@reviewCard.Title <br>On @reviewCard.CreatedOn</td>
+        <td>@reviewCard.AuthorDisplayName</td>
+      </tr>
+    }
+  </tbody>
+</table>
