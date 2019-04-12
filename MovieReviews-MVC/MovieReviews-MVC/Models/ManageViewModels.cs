@@ -12,6 +12,12 @@ namespace MovieReviews_MVC.Models
         public string PhoneNumber { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
+        [Required]
+        [StringLength(20,MinimumLength = 3)]
+        public string DisplayName { get; set; }
+        [Required]
+        [StringLength(300)]
+        public string AvatarUri { get; set; }
     }
 
     public class ManageLoginsViewModel

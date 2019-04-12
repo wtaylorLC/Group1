@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -15,6 +16,7 @@ namespace MovieReviews_MVC.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext ctx = new ApplicationDbContext();
 
         public ManageController()
         {
@@ -64,13 +66,17 @@ namespace MovieReviews_MVC.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
-            var model = new IndexViewModel
+            var user = ctx.Users.FirstOrDefault(u => u.Id == userId);
+
+            var model = new IndexViewModel()
             {
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                DisplayName = user.DisplayName ?? "",
+                AvatarUri = user.AvatarUri ?? "",
             };
             return View(model);
         }
@@ -99,6 +105,23 @@ namespace MovieReviews_MVC.Controllers
             return RedirectToAction("ManageLogins", new { Message = message });
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SetUserInfo(IndexViewModel model)
+        {
+            var userId = User.Identity.GetUserId();
+            var user = ctx.Users.FirstOrDefault(u => u.Id == userId);
+
+            if (ModelState.IsValid)
+            {
+                user.AvatarUri = model.AvatarUri;
+                user.DisplayName = model.DisplayName;
+                ctx.Users.AddOrUpdate(user);
+                ctx.SaveChanges();
+            }
+
+            return Redirect(Request.UrlReferrer.ToString());
+        }
         //
         // GET: /Manage/AddPhoneNumber
         public ActionResult AddPhoneNumber()
