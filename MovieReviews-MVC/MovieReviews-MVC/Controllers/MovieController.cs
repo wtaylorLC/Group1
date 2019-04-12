@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -74,6 +75,13 @@ namespace MovieReviews_MVC.Controllers
             return View(model);
         }
 
+
+        public ActionResult ViewAll()
+        {
+            var movies = ctx.Movies.ToList();
+            return View(movies);
+        }
+
         #region Not In Use
         // GET: Movie/Create
         public ActionResult Create()
@@ -83,13 +91,18 @@ namespace MovieReviews_MVC.Controllers
 
         // POST: Movie/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create([Bind(Include = "Title,Description,Year,Length,Image")] Movie movie)
         {
             try
             {
-                // TODO: Add insert logic here
+                if (ModelState.IsValid)
+                {
+                    ctx.Movies.Add(movie);
+                    ctx.SaveChanges();
+                    return RedirectToAction("ViewAll");
+                }
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Create");
             }
             catch
             {
@@ -100,18 +113,31 @@ namespace MovieReviews_MVC.Controllers
         // GET: Movie/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var movie = ctx.Movies.FirstOrDefault(m => m.Id == id);
+            return View(movie);
         }
 
         // POST: Movie/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, [Bind(Include = "Title,Description,Year,Length,Image")] Movie model)
         {
             try
             {
-                // TODO: Add update logic here
+                if (ModelState.IsValid)
+                {
+                    var movie = ctx.Movies.FirstOrDefault(m => m.Id == model.Id);
+                    movie.Title = model.Title;
+                    movie.Description = model.Description;
+                    movie.Year = model.Year;
+                    movie.Length = model.Length;
+                    movie.Image = model.Image;
 
-                return RedirectToAction("Index");
+                    ctx.Movies.AddOrUpdate(movie);
+                    ctx.SaveChanges();
+                    return RedirectToAction("ViewAll");
+                }
+
+                return View();
             }
             catch
             {

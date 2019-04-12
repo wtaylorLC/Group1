@@ -43,7 +43,7 @@ namespace MovieReviews_MVC.Models
     {
       modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
-      modelBuilder.Entity<Movie>().ToTable("Movie");
+      
       modelBuilder.Entity<Article>().ToTable("Article");
       modelBuilder.Entity<FilmCrewMember>().ToTable("FilmCrewMember");
       modelBuilder.Entity<Review>().ToTable("Review");
