@@ -190,6 +190,10 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\ReviewsController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
+    <Compile Include="Migrations\201904122134255_UpdateMovieConfig.cs" />
+    <Compile Include="Migrations\201904122134255_UpdateMovieConfig.Designer.cs">
+      <DependentUpon>201904122134255_UpdateMovieConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\ViewModels\ReviewModalViewModel.cs" />
     <Compile Include="Migrations\201904091121420_AddPostIdComment.cs" />
     <Compile Include="Migrations\201904091121420_AddPostIdComment.Designer.cs">
@@ -431,6 +435,9 @@
     <Content Include="Views\Review\Index.cshtml" />
     <Content Include="Views\Shared\_ReviewModal.cshtml" />
     <Content Include="Views\Manage\_UserInfo.cshtml" />
+    <Content Include="Views\Movie\Create.cshtml" />
+    <Content Include="Views\Movie\ViewAll.cshtml" />
+    <Content Include="Views\Movie\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -475,6 +482,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904091121420_AddPostIdComment.resx">
       <DependentUpon>201904091121420_AddPostIdComment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904122134255_UpdateMovieConfig.resx">
+      <DependentUpon>201904122134255_UpdateMovieConfig.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

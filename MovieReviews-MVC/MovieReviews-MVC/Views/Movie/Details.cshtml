@@ -73,7 +73,12 @@
       <div class="loader">Loading...</div>
 
     </div>
-
+    @if (Request.IsAuthenticated)
+    {
+      <div class="row">
+        <input type="button" value="Comment" class="btn btn-primary text-capitalize" data-url="/Comment/GetCommentModal/@Model.PostId" onclick="getCommentModal(event)" />
+      </div>
+    }
   </div>
   <div class="tab-pane fade" id="reviews">
     <div class="partials-content mt-5" data-url="/review/reviews/@Model.Movie.Id">
@@ -84,12 +89,7 @@
     <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork.</p>
   </div>
 </div>
-@if (Request.IsAuthenticated)
-{
-  <div class="row">
-    <input type="button" value="Comment" class="btn btn-primary text-capitalize" data-url="/Comment/GetCommentModal/@Model.PostId" onclick="getCommentModal(event)" />
-  </div>
-}
+
 @* Add Review Modal *@
 <div class="add-review"></div>
 
