@@ -27,6 +27,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -91,6 +92,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.3.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.5.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
@@ -102,8 +104,7 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
@@ -128,9 +129,7 @@
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
@@ -148,6 +147,7 @@
     <Reference Include="System.Web.Optimization">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -190,13 +190,10 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\ReviewsController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
+    <Compile Include="Models\ViewModels\ReviewModalViewModel.cs" />
     <Compile Include="Migrations\201904091121420_AddPostIdComment.cs" />
     <Compile Include="Migrations\201904091121420_AddPostIdComment.Designer.cs">
       <DependentUpon>201904091121420_AddPostIdComment.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904111410122_AddMovieToReview.cs" />
-    <Compile Include="Migrations\201904111410122_AddMovieToReview.Designer.cs">
-      <DependentUpon>201904111410122_AddMovieToReview.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModels\CommentModalViewModel.cs" />
     <Compile Include="Controllers\FilmCrewMembersController.cs" />
@@ -311,6 +308,8 @@
     <Content Include="Images\Avengers.jpg" />
     <Content Include="Images\Gladiator.jpg" />
     <Content Include="Images\incredibles2.jpg" />
+    <Content Include="lib\rateYo\jquery.rateyo.min.css" />
+    <Content Include="lib\rateYo\jquery.rateyo.min.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -346,6 +345,8 @@
     <Content Include="Content\font-awesome\webfonts\fa-solid-900.ttf" />
     <Content Include="Content\font-awesome\webfonts\fa-solid-900.woff" />
     <Content Include="Content\font-awesome\webfonts\fa-solid-900.woff2" />
+    <Content Include="lib\rateYo\jquery.rateyo.min.css.map" />
+    <Content Include="lib\rateYo\jquery.rateyo.min.js.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -428,6 +429,7 @@
     <Content Include="Views\Shared\_CommentModal.cshtml" />
     <Content Include="Views\Shared\_AdminMenu.cshtml" />
     <Content Include="Views\Review\Index.cshtml" />
+    <Content Include="Views\Shared\_ReviewModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -472,9 +474,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904091121420_AddPostIdComment.resx">
       <DependentUpon>201904091121420_AddPostIdComment.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904111410122_AddMovieToReview.resx">
-      <DependentUpon>201904111410122_AddMovieToReview.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

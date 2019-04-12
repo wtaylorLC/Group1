@@ -25,7 +25,7 @@
         <li class="nav-item">@Html.ActionLink("Directors", "Index", "FilmCrewMembers", new { crewRole = "Director" }, new { @class = "nav-link" })</li>
         <li class="nav-item">@Html.ActionLink("Reviews", "Index", "Review", "", new { @class = "nav-link" })</li>
         <li class="nav-item">@Html.ActionLink("News", "Index", "Home", "", new { @class = "nav-link" })</li>
-       @* <li class="nav-item">@Html.ActionLink("About", "About", "Home", "", new { @class = "nav-link" })</li>*@
+        @* <li class="nav-item">@Html.ActionLink("About", "About", "Home", "", new { @class = "nav-link" })</li>*@
       </ul>
 
 
@@ -52,6 +52,7 @@
   </div>
 
   @Scripts.Render("~/bundles/jquery")
+  @Scripts.Render("~/bundles/jqueryval")
   @Scripts.Render("~/bundles/bootstrap")
   @RenderSection("scripts", required: false)
 </body>

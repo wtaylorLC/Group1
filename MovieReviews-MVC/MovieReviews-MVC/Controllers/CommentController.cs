@@ -106,8 +106,6 @@ namespace MovieReviews_MVC.Controllers
         }
         #endregion
 
-
-
         #region Comment on post actions
 
         [HttpGet]
