@@ -128,7 +128,7 @@ namespace MovieReviews_MVC.DbInitializer
           r.Title = f.Lorem.Sentence();
           r.Body = f.Lorem.Sentences();
           r.CreatedOn = f.Date.Past();
-          r.Rating = f.Random.Int(0, 10);
+          r.Rating = f.Random.Float(0, 10);
         });
 
       var movies = new Faker<Movie>()

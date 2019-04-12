@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Bogus;
+using Microsoft.AspNet.Identity;
 using MovieReviews_MVC.Models;
 using MovieReviews_MVC.Models.Entities;
 using MovieReviews_MVC.Models.ViewModels;
@@ -49,13 +50,25 @@ namespace MovieReviews_MVC.Controllers
             var movie = ctx.Movies.Include(m => m.FilmCrewMembers).FirstOrDefault(m => m.Id == id);
             var filmCrew = movie.FilmCrewMembers;
 
+            int? reviewId = null;
+            var userId = User.Identity.GetUserId();
+            if (User.Identity.GetUserId() != null)
+            {
+                var review = ctx.Reviews.FirstOrDefault(r => r.AuthorId == userId && r.MovieId == movie.Id);
+                if (review != null)
+                {
+                    reviewId = review.Id;
+                }
+            }
 
             var model = new MovieDetailsViewModel
             {
                 PostId = post.Id,
                 Movie = movie,
                 Directors = filmCrew.Where(c => c.Role == MovieRole.Director).ToList(),
-                Actors = filmCrew.Where(c => c.Role == MovieRole.Actor).ToList()
+                Actors = filmCrew.Where(c => c.Role == MovieRole.Actor).ToList(),
+                ReviewId = reviewId,
+                
             };
 
             return View(model);

@@ -5,21 +5,9 @@
   @foreach (var review in Model)
   {
     <div class="card mb-3 position-relative review-card">
-      <div class="review__rating--wrapper">
-        <i class="fas fa-star"></i>
-        <i class="fas fa-star"></i>
-        <i class="fas fa-star"></i>
-        <i class="fas fa-star"></i>
-        <i class="fas fa-star"></i>
-        <i class="fas fa-star"></i>
-        <i class="fas fa-star-half-alt"></i>
-        <i class="far fa-star"></i>
-        <i class="far fa-star"></i>
-        <i class="far fa-star"></i>
-
-      </div>
       <div class="card-body">
         <h4 class="card-title">@review.Title</h4>
+        <div class="rateYo readOnly py-2 px-0" data-rating="@review.Rating"></div>
         <span>@review.AuthorUsername</span>
         <span>on @review.CreatedOn</span>
         <p class="card-text">

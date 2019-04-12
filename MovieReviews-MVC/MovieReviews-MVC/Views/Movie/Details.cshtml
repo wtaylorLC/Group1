@@ -16,7 +16,7 @@
   <div class="col-6 pt-3 d-flex flex-column">
 
     <h2 class="mb-5">@Model.Movie.Title</h2>
-    <p class="text-capitalize"> Rating: @Model.Movie.Rating</p>
+    <p class="text-capitalize"> Rating: <span class="rateYo readOnly d-inline-block" data-rating="@Model.Movie.Rating"></span></p>
 
 
     <p>@Model.Movie.Description</p>
@@ -35,8 +35,18 @@
         <a href="@Url.Action("Details","FilmCrewMembers", new { id = actor.Id})">@actor.Name</a>
       }
     </p>
+    @if (Request.IsAuthenticated)
+    {
+      if (@Model.ReviewId == null)
+      {
+        <button class="btn btn-outline-primary d-inline" data-url="/Review/ReviewModal/@Model.Movie.Id" onclick="getReviewModal(event)" style="width: 250px;">Review this movie</button>
+      }
+      else
+      {
+        <a class="btn btn-outline-primary d-inline" href="@Url.Action("Details", "Review",  new { id = Model.ReviewId})" style="width: 250px;">Go to your review</a>
+      }
 
-    <button data-toggle="modal" data-target="#review-modal" class="btn btn-outline-primary d-inline" style="width: 250px;">Review this title</button>
+    }
   </div>
 
 </div>
@@ -66,7 +76,7 @@
 
   </div>
   <div class="tab-pane fade" id="reviews">
-    <div class="partials-content" data-url="/review/reviews/@Model.Movie.Id">
+    <div class="partials-content mt-5" data-url="/review/reviews/@Model.Movie.Id">
       <div class="loader">Loading...</div>
     </div>
   </div>
@@ -74,67 +84,18 @@
     <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork.</p>
   </div>
 </div>
-
-    <div class="row">
-      <input type="button" value="Comment" class="btn btn-primary text-capitalize" data-url="/Comment/GetReportModal/@Model.PostId" onclick="getCommentReportModal(event)" />
-    </div>
-
-@* Add Review Modal *@
-<div class="modal fade" id="review-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">@Model.Movie.Title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form class="my-3">
-          <div class="form-group">
-            <label for="movie-rating" class="col-form-label mb-1">Overall rating</label>
-            <div id="movie-rating">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star-half-alt"></i>
-              <i class="far fa-star"></i>
-              <i class="far fa-star"></i>
-              <i class="far fa-star"></i>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="review-title" class="col-form-label mb-1">Add a headline</label>
-            <input placeholder="What's most important to know?" type="text" class="form-control" id="review-title">
-          </div>
-          <div class="form-group">
-            <label for="review-text" class="col-form-label mb-1">Write your review</label>
-            <textarea placeholder="What did you like or dislike?" class="form-control" style="height: 250px;" id="review-text"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Submit</button>
-      </div>
-    </div>
+@if (Request.IsAuthenticated)
+{
+  <div class="row">
+    <input type="button" value="Comment" class="btn btn-primary text-capitalize" data-url="/Comment/GetCommentModal/@Model.PostId" onclick="getCommentModal(event)" />
   </div>
-</div>
-@* Review Modal End *@
-
+}
+@* Add Review Modal *@
+<div class="add-review"></div>
 
 @* Report Comment Modal *@
-<div class="report-comment">
-
-</div>
-@* Report Comment Modal End *@
+<div class="report-comment"></div>
 
 @* Add Comment Modal *@
-<div class="add-comment">
+<div class="add-comment"></div>
 
-</div>
-
-@* Add Comment Modal End *@

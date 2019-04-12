@@ -5,6 +5,10 @@
     {
       "library": "font-awesome@5.8.1",
       "destination": "Content/font-awesome/"
+    },
+    {
+      "library": "rateYo@2.3.4",
+      "destination": "lib/rateYo/"
     }
   ]
 }
