@@ -163,3 +163,12 @@ textarea {
 }
 
 /* LOADER end*/
+
+
+tr {
+  cursor: pointer;
+}
+
+td,th {
+  padding: .75rem;
+}

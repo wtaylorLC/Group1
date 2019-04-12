@@ -13,6 +13,8 @@ namespace MovieReviews_MVC.Models.Entities
     public string Body { get; set; }
     public DateTime CreatedOn { get; set; }
     public float  Rating { get; set; }
+
+    public virtual Movie Movie { get; set; }
   
   }
 }
